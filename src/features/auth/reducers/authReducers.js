@@ -5,7 +5,8 @@ import {
 } from "../actions/authActionTypes";
 
 const initialState = {
-  user: {}
+  user: {},
+  isAuthenticated: localStorage.getItem("token") ? true : false
 };
 
 export default (state = initialState, action) => {
@@ -13,7 +14,8 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
       return {
-        ...state
+        ...state,
+        isAuthenticated: true
       };
     case LOGIN_FAILURE:
       return {

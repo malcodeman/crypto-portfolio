@@ -8,10 +8,24 @@ import Loader from "../../loader/components/Loader";
 
 import { login } from "../actions/authActions";
 
+const Wrapper = styled.div`
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${props => props.theme.brand};
+`;
+
 const StyledForm = styled(Form)`
   display: flex;
   flex-direction: column;
-  padding: 24px 0;
+  padding: 24px;
+  max-width: 576px;
+  width: 100%;
+  background-color: #fff;
+  @media (min-width: 576px) {
+    padding: 64px;
+  }
 `;
 
 const FormItem = styled.div`
@@ -32,7 +46,7 @@ const Input = styled(Field)`
 `;
 
 const Button = styled.button`
-  background-color: #3a3133;
+  background-color: ${props => props.theme.primary};
   color: #fff;
   border: 0;
   cursor: pointer;
@@ -55,21 +69,27 @@ class FormikForm extends Component {
   render() {
     const { errors, touched, isSubmitting } = this.props;
     return (
-      <StyledForm>
-        <FormItem>
-          <Input type="text" name="username" placeholder="Username or email" />
-          {touched.username &&
-            errors.username && <ErrorMessage>{errors.username}</ErrorMessage>}
-        </FormItem>
-        <FormItem>
-          <Input type="password" name="password" placeholder="Password" />
-          {touched.password &&
-            errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
-        </FormItem>
-        <Button disabled={isSubmitting}>
-          {isSubmitting ? <Loader /> : "Log in"}
-        </Button>
-      </StyledForm>
+      <Wrapper>
+        <StyledForm>
+          <FormItem>
+            <Input
+              type="text"
+              name="username"
+              placeholder="Username or email"
+            />
+            {touched.username &&
+              errors.username && <ErrorMessage>{errors.username}</ErrorMessage>}
+          </FormItem>
+          <FormItem>
+            <Input type="password" name="password" placeholder="Password" />
+            {touched.password &&
+              errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
+          </FormItem>
+          <Button disabled={isSubmitting}>
+            {isSubmitting ? <Loader /> : "Log in"}
+          </Button>
+        </StyledForm>
+      </Wrapper>
     );
   }
 }
@@ -80,7 +100,7 @@ const LoginForm = withFormik({
     password: props.password || ""
   }),
   validationSchema: Yup.object().shape({
-    username: Yup.string().required("Username or email is required"),
+    username: Yup.string().required("Username is required"),
     password: Yup.string().required("Password is required")
   }),
   handleSubmit(payload, bag) {
