@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
+import SettingsMenu from "./SettingsMenu";
+
 const StyledHeader = styled.header`
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   min-height: 64px;
   color: #151b26;
   padding: 12px;
@@ -11,7 +15,12 @@ const StyledHeader = styled.header`
 
 class Header extends Component {
   render() {
-    return <StyledHeader>Header</StyledHeader>;
+    return (
+      <StyledHeader>
+        <span>Header</span>
+        <SettingsMenu />
+      </StyledHeader>
+    );
   }
 }
 

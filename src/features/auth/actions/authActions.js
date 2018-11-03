@@ -1,4 +1,4 @@
-import { LOGIN_REQUEST, LOGIN_RESET } from "./authActionTypes";
+import { LOGIN_REQUEST, LOGOUT } from "./authActionTypes";
 
 export const login = (payload, meta) => {
   return {
@@ -8,8 +8,8 @@ export const login = (payload, meta) => {
   };
 };
 
-export const loginReset = () => {
+export const logout = () => {
   return {
-    type: LOGIN_RESET
+    type: LOGOUT
   };
 };

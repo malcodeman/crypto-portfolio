@@ -1,7 +1,7 @@
 import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  LOGIN_RESET
+  LOGOUT
 } from "../actions/authActionTypes";
 
 const initialState = {
@@ -21,9 +21,10 @@ export default (state = initialState, action) => {
       return {
         ...state
       };
-    case LOGIN_RESET:
+    case LOGOUT:
       return {
-        ...state
+        ...state,
+        isAuthenticated: false
       };
     default:
       return state;
