@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { ThemeProvider } from "styled-components";
+import { withRouter } from "react-router-dom";
 
 import LoginFrom from "./features/auth/containers/LoginForm";
 import Home from "./features/home/containers/Home";
@@ -23,7 +24,9 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(App);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    null
+  )(App)
+);

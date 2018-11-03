@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { Switch, Route } from "react-router-dom";
 
-import Topbar from "./Topbar";
+import Header from "../../header/containers/Header";
+import NotFound from "../../404/components/NotFound";
+import privateRoutes from "../../../core/routes/privateRoutes";
 
 const StyledMain = styled.main`
   color: #fff;
@@ -12,14 +15,32 @@ const StyledMain = styled.main`
 const ViewWrapper = styled.div`
   padding: 10px;
   color: #151b26;
+  height: 100%;
 `;
 
 class Main extends Component {
+  renderRoutes = routes => {
+    return (
+      <Switch>
+        {routes.map(route => {
+          return (
+            <Route
+              key={route.path}
+              path={route.path}
+              exact={route.exact}
+              component={route.component}
+            />
+          );
+        })}
+        <Route component={NotFound} />
+      </Switch>
+    );
+  };
   render() {
     return (
       <StyledMain>
-        <Topbar />
-        <ViewWrapper>Content</ViewWrapper>
+        <Header />
+        <ViewWrapper>{this.renderRoutes(privateRoutes)}</ViewWrapper>
       </StyledMain>
     );
   }

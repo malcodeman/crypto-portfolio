@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-import Sidebar from "./Sidebar";
+import Sidebar from "../../sidebar/containers/Sidebar";
 import Main from "./Main";
 
 const Wrapper = styled.div`
