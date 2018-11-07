@@ -7,7 +7,7 @@ import Main from "./Main";
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 244px 1fr;
-  min-height: 100vh;
+  grid-template-rows: 100vh;
 `;
 
 class Home extends Component {

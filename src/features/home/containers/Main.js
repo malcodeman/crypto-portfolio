@@ -16,6 +16,7 @@ const ViewWrapper = styled.div`
   padding: 10px;
   color: #151b26;
   height: 100%;
+  overflow-y: auto;
 `;
 
 class Main extends Component {
