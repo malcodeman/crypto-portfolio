@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
     case CHECK_IF_AUTHENTICATED:
       return {
         ...state,
-        isAuthenticated: localStorage.getItem("token") ? true : false
+        isAuthenticated: action.payload
       };
     case LOGIN_FAILURE:
       return {

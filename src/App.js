@@ -12,8 +12,9 @@ import { checkIfAuthenticated } from "./features/auth/actions/authActions";
 class App extends Component {
   componentDidMount = () => {
     const { checkIfAuthenticated } = this.props;
+    const isAuthenticated = localStorage.getItem("token") ? true : false;
 
-    checkIfAuthenticated();
+    checkIfAuthenticated(isAuthenticated);
   };
 
   render() {

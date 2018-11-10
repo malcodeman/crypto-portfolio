@@ -18,8 +18,9 @@ export const logout = () => {
   };
 };
 
-export const checkIfAuthenticated = () => {
+export const checkIfAuthenticated = payload => {
   return {
+    payload,
     type: CHECK_IF_AUTHENTICATED
   };
 };
