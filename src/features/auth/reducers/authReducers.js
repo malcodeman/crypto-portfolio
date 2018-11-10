@@ -1,12 +1,13 @@
 import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  LOGOUT
+  LOGOUT,
+  CHECK_IF_AUTHENTICATED
 } from "../actions/authActionTypes";
 
 const initialState = {
   user: {},
-  isAuthenticated: localStorage.getItem("token") ? true : false
+  isAuthenticated: false
 };
 
 export default (state = initialState, action) => {
@@ -16,6 +17,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isAuthenticated: true
+      };
+    case CHECK_IF_AUTHENTICATED:
+      return {
+        ...state,
+        isAuthenticated: localStorage.getItem("token") ? true : false
       };
     case LOGIN_FAILURE:
       return {

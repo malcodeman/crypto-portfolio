@@ -7,7 +7,15 @@ import LoginFrom from "./features/auth/containers/LoginForm";
 import Home from "./features/home/containers/Home";
 import defaultTheme from "./core/style/themes/default";
 
+import { checkIfAuthenticated } from "./features/auth/actions/authActions";
+
 class App extends Component {
+  componentDidMount = () => {
+    const { checkIfAuthenticated } = this.props;
+
+    checkIfAuthenticated();
+  };
+
   render() {
     const { isAuthenticated } = this.props;
     return (
@@ -27,6 +35,6 @@ const mapStateToProps = state => {
 export default withRouter(
   connect(
     mapStateToProps,
-    null
+    { checkIfAuthenticated }
   )(App)
 );

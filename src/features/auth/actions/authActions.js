@@ -1,4 +1,8 @@
-import { LOGIN_REQUEST, LOGOUT } from "./authActionTypes";
+import {
+  LOGIN_REQUEST,
+  LOGOUT,
+  CHECK_IF_AUTHENTICATED
+} from "./authActionTypes";
 
 export const login = (payload, meta) => {
   return {
@@ -11,5 +15,11 @@ export const login = (payload, meta) => {
 export const logout = () => {
   return {
     type: LOGOUT
+  };
+};
+
+export const checkIfAuthenticated = () => {
+  return {
+    type: CHECK_IF_AUTHENTICATED
   };
 };
