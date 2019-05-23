@@ -18,6 +18,15 @@ const initialMarketQuotes = {
         price: ""
       }
     }
+  },
+  LTC: {
+    name: "",
+    symbol: "",
+    quote: {
+      USD: {
+        price: ""
+      }
+    }
   }
 };
 

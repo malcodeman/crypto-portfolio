@@ -8,7 +8,7 @@ import {
 } from "../actions/portfolioActionTypes";
 
 const getMarketQuotesLatestApi = () => {
-  return axios.get(`/cryptocurrency/quotes/latest?symbol=BTC,ETH`);
+  return axios.get(`/cryptocurrency/quotes/latest?symbol=BTC,ETH,LTC`);
 };
 
 function* getMarketQuotesLatest() {
