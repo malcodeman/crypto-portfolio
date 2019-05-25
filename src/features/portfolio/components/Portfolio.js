@@ -6,6 +6,7 @@ import { getMarketQuotesLatest } from "../actions/portfolioActionCreators";
 import { ReactComponent as BtcIcon } from "../assets/icons/btc.svg";
 import { ReactComponent as EthIcon } from "../assets/icons/eth.svg";
 import { ReactComponent as LtcIcon } from "../assets/icons/ltc.svg";
+import Portfolios from "./Portfolios";
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -19,6 +20,11 @@ const Container = styled.div`
   margin: 0 auto;
   padding: 64px 20px;
   width: 100%;
+  @media (min-width: 992px) {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-gap: 20px;
+  }
 `;
 
 const Header = styled.header`
@@ -111,6 +117,19 @@ const AddButton = styled.button`
   border: 1px solid ${props => props.theme.borderColor};
 `;
 
+const SidebarContainer = styled.div`
+  display: none;
+  @media (min-width: 992px) {
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+const Sidebar = styled.div`
+  position: sticky;
+  top: 64px;
+`;
+
 function Portfolio(props) {
   const { getMarketQuotesLatest, marketQuotes } = props;
 
@@ -121,8 +140,13 @@ function Portfolio(props) {
   return (
     <Wrapper>
       <Container>
-        <Header>New Portfolio</Header>
+        <SidebarContainer>
+          <Sidebar>
+            <Portfolios />
+          </Sidebar>
+        </SidebarContainer>
         <Watchlist>
+          <Header>New Portfolio</Header>
           <TableHeader>
             <HeaderCell>Coin</HeaderCell>
             <HeaderCell>Price</HeaderCell>
