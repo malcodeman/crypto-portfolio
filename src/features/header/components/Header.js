@@ -2,12 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-import { ReactComponent as barChartIcon } from "../assets/icons/bar-chart.svg";
-import { ReactComponent as homeIcon } from "../assets/icons/home.svg";
-import { ReactComponent as plusIcon } from "../assets/icons/plus.svg";
-import { ReactComponent as radioIcon } from "../assets/icons/radio.svg";
-import { ReactComponent as rssIcon } from "../assets/icons/rss.svg";
-
 const StyledHeader = styled.header`
   position: fixed;
   top: 0;
@@ -18,79 +12,32 @@ const StyledHeader = styled.header`
 `;
 
 const Container = styled.div`
-  max-width: 576px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-  height: 48px;
   padding: 0 20px;
-  display: flex;
-  @media (min-width: 992px) {
-    max-width: 992px;
-  }
 `;
 
 const Nav = styled.nav`
   display: flex;
-  align-items: stretch;
+  height: 48px;
   width: 100%;
-`;
-
-const IconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6px;
-  border-radius: 50%;
+  justify-content: space-between;
+  @media (min-width: 576px) {
+    justify-content: initial;
+  }
 `;
 
 const StyledNavLink = styled(NavLink)`
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-grow: 1;
-  border-bottom: 2px solid transparent;
-  color: ${props => props.theme.primary};
+  padding: 0 10px;
+  font-size: 1rem;
+  color: ${props => props.theme.primary}99;
   &.active {
-    svg {
-      color: ${props => props.theme.primary};
-    }
+    color: ${props => props.theme.primary};
   }
-  &:hover ${IconWrapper} {
-    background-color: ${props => props.theme.brand}19;
-    svg {
-      stroke: ${props => props.theme.brand};
-    }
-  }
-`;
-
-const Home = styled(homeIcon)`
-  height: 20px;
-  width: 20px;
-  color: ${props => props.theme.secondary};
-`;
-
-const Signal = styled(radioIcon)`
-  height: 20px;
-  width: 20px;
-  color: ${props => props.theme.secondary};
-`;
-
-const AddCoin = styled(plusIcon)`
-  height: 20px;
-  width: 20px;
-  color: ${props => props.theme.secondary};
-`;
-
-const Markets = styled(barChartIcon)`
-  height: 20px;
-  width: 20px;
-  color: ${props => props.theme.secondary};
-`;
-
-const News = styled(rssIcon)`
-  height: 20px;
-  width: 20px;
-  color: ${props => props.theme.secondary};
 `;
 
 const Header = () => {
@@ -99,30 +46,11 @@ const Header = () => {
       <Container>
         <Nav>
           <StyledNavLink exact to="/">
-            <IconWrapper>
-              <Home />
-            </IconWrapper>
+            Home
           </StyledNavLink>
-          <StyledNavLink to="/signals">
-            <IconWrapper>
-              <Signal />
-            </IconWrapper>
-          </StyledNavLink>
-          <StyledNavLink to="/add">
-            <IconWrapper>
-              <AddCoin />
-            </IconWrapper>
-          </StyledNavLink>
-          <StyledNavLink to="/markets">
-            <IconWrapper>
-              <Markets />
-            </IconWrapper>
-          </StyledNavLink>
-          <StyledNavLink to="/news">
-            <IconWrapper>
-              <News />
-            </IconWrapper>
-          </StyledNavLink>
+          <StyledNavLink to="/signals">Signals</StyledNavLink>
+          <StyledNavLink to="/markets">Markets</StyledNavLink>
+          <StyledNavLink to="/news">News</StyledNavLink>
         </Nav>
       </Container>
     </StyledHeader>
