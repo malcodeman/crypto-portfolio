@@ -7,7 +7,7 @@ import { ReactComponent as BtcIcon } from "../assets/icons/btc.svg";
 import { ReactComponent as EthIcon } from "../assets/icons/eth.svg";
 import { ReactComponent as LtcIcon } from "../assets/icons/ltc.svg";
 
-const Main = styled.main`
+const Wrapper = styled.div`
   min-height: 100vh;
   transition: background-color 0.2s ease;
   background-color: ${props => props.theme.backgroundPrimary};
@@ -17,7 +17,8 @@ const Main = styled.main`
 const Container = styled.div`
   max-width: 992px;
   margin: 0 auto;
-  padding: 32px 24px;
+  padding: 64px 20px;
+  width: 100%;
 `;
 
 const Header = styled.header`
@@ -110,7 +111,7 @@ const AddButton = styled.button`
   border: 1px solid ${props => props.theme.borderColor};
 `;
 
-const Portfolio = props => {
+function Portfolio(props) {
   const { getMarketQuotesLatest, marketQuotes } = props;
 
   useEffect(() => {
@@ -118,7 +119,7 @@ const Portfolio = props => {
   }, []);
 
   return (
-    <Main>
+    <Wrapper>
       <Container>
         <Header>New Portfolio</Header>
         <Watchlist>
@@ -186,9 +187,9 @@ const Portfolio = props => {
           </Row>
         </Watchlist>
       </Container>
-    </Main>
+    </Wrapper>
   );
-};
+}
 
 const mapStateToProps = state => {
   return {

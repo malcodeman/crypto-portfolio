@@ -10,7 +10,7 @@ instance.interceptors.response.use(
     return Promise.resolve(response);
   },
   error => {
-    return Promise.resolve(error);
+    return Promise.reject(error);
   }
 );
 
