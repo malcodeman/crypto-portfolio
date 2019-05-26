@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
+import MoreVertical from "../styles/icons/MoreVertical";
+
 const StyledHeader = styled.header`
   position: fixed;
   top: 0;
@@ -41,6 +43,18 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
+const MoreButton = styled.button`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: 0;
+  background-color: transparent;
+  @media (min-width: 576px) {
+    margin-left: auto;
+  }
+  color: ${props => props.theme.primary};
+`;
+
 const Header = () => {
   return (
     <StyledHeader>
@@ -52,6 +66,9 @@ const Header = () => {
           <StyledNavLink to="/signals">Signals</StyledNavLink>
           <StyledNavLink to="/markets">Markets</StyledNavLink>
           <StyledNavLink to="/news">News</StyledNavLink>
+          <MoreButton>
+            <MoreVertical height={16} width={16} />
+          </MoreButton>
         </Nav>
       </Container>
     </StyledHeader>
