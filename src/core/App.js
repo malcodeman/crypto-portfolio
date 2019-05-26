@@ -9,6 +9,7 @@ import darkTheme from "./styles/themes/dark";
 import history from "./routing/history";
 import Header from "../features/header/components/Header";
 import Portfolio from "../features/portfolio/components/Portfolio";
+import NavigationDrawer from "../features/ui/components/NavigationDrawer";
 
 const App = props => {
   function getTheme() {
@@ -23,6 +24,7 @@ const App = props => {
       <Router history={history}>
         <>
           <Header />
+          <NavigationDrawer />
           <Route exact path="/" component={Portfolio} />
         </>
       </Router>

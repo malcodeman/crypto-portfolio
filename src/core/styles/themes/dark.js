@@ -1,6 +1,6 @@
 export default {
   brand: "#0095ff",
-  primary: "#fff",
+  primary: "#ffffff",
   secondary: "#979797",
   backgroundPrimary: "#000000",
   backgroundSecondary: "#1c2938",

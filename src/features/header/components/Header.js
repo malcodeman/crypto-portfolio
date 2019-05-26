@@ -1,7 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
+import { openNavigationDrawer } from "../../ui/actions/uiActionCreators";
 import MoreVertical from "../styles/icons/MoreVertical";
 
 const StyledHeader = styled.header`
@@ -55,7 +57,9 @@ const MoreButton = styled.button`
   color: ${props => props.theme.primary};
 `;
 
-const Header = () => {
+function Header(props) {
+  const { openNavigationDrawer } = props;
+
   return (
     <StyledHeader>
       <Container>
@@ -66,13 +70,18 @@ const Header = () => {
           <StyledNavLink to="/signals">Signals</StyledNavLink>
           <StyledNavLink to="/markets">Markets</StyledNavLink>
           <StyledNavLink to="/news">News</StyledNavLink>
-          <MoreButton>
+          <MoreButton onClick={() => openNavigationDrawer()}>
             <MoreVertical height={16} width={16} />
           </MoreButton>
         </Nav>
       </Container>
     </StyledHeader>
   );
-};
+}
 
-export default Header;
+export default connect(
+  null,
+  {
+    openNavigationDrawer
+  }
+)(Header);
