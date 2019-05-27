@@ -7,6 +7,7 @@ import { ReactComponent as BtcIcon } from "../assets/icons/btc.svg";
 import { ReactComponent as EthIcon } from "../assets/icons/eth.svg";
 import { ReactComponent as LtcIcon } from "../assets/icons/ltc.svg";
 import Portfolios from "./Portfolios";
+import Plus from "../styles/icons/Plus";
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -130,6 +131,18 @@ const Sidebar = styled.div`
   top: 64px;
 `;
 
+const AddCoinButton = styled.button`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: 0;
+  border-radius: 50%;
+  padding: 10px;
+  margin: 16px auto;
+  color: ${props => props.theme.backgroundPrimary};
+  background-color: ${props => props.theme.primary};
+`;
+
 function Portfolio(props) {
   const { getMarketQuotesLatest, marketQuotes } = props;
 
@@ -209,6 +222,9 @@ function Portfolio(props) {
               <AddButton>Add</AddButton>
             </StandarCell>
           </Row>
+          <AddCoinButton>
+            <Plus height={16} width={16} />
+          </AddCoinButton>
         </Watchlist>
       </Container>
     </Wrapper>
