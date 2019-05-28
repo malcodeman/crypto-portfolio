@@ -1,4 +1,8 @@
-import { GET_MARKET_QUOTES_LATEST_SUCCESS } from "../actions/portfolioActionTypes";
+import {
+  GET_MARKET_QUOTES_LATEST_SUCCESS,
+  GET_MAP_REQUEST,
+  GET_MAP_SUCCESS
+} from "../actions/portfolioActionTypes";
 
 const initialMarketQuotes = {
   BTC: {
@@ -31,7 +35,9 @@ const initialMarketQuotes = {
 };
 
 const initialState = {
-  marketQuotes: initialMarketQuotes
+  marketQuotes: initialMarketQuotes,
+  map: [],
+  fetchingMap: false
 };
 
 export default (state = initialState, action) => {
@@ -44,6 +50,17 @@ export default (state = initialState, action) => {
       return {
         ...state,
         marketQuotes: action.payload
+      };
+    case GET_MAP_REQUEST:
+      return {
+        ...state,
+        fetchingMap: true
+      };
+    case GET_MAP_SUCCESS:
+      return {
+        ...state,
+        map: action.payload,
+        fetchingMap: false
       };
     default:
       return state;

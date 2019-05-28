@@ -10,5 +10,6 @@ export default {
   borderColor: "#979797",
   borderRadius: "6px",
   bullish: "#6cc499",
-  bearish: "#e0625e"
+  bearish: "#e0625e",
+  ibizaSunset: "linear-gradient(to right, #ee0979, #ff6a00)"
 };

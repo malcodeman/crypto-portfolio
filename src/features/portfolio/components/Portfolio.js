@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
@@ -7,6 +7,7 @@ import { ReactComponent as BtcIcon } from "../assets/icons/btc.svg";
 import { ReactComponent as EthIcon } from "../assets/icons/eth.svg";
 import { ReactComponent as LtcIcon } from "../assets/icons/ltc.svg";
 import Portfolios from "./Portfolios";
+import WatchCoinModal from "./WatchCoinModal";
 import Plus from "../styles/icons/Plus";
 
 const Wrapper = styled.div`
@@ -145,6 +146,7 @@ const AddCoinButton = styled.button`
 
 function Portfolio(props) {
   const { getMarketQuotesLatest, marketQuotes } = props;
+  const [watchCoinModal, setWatchCoinModal] = useState(false);
 
   useEffect(() => {
     getMarketQuotesLatest();
@@ -222,9 +224,12 @@ function Portfolio(props) {
               <AddButton>Add</AddButton>
             </StandarCell>
           </Row>
-          <AddCoinButton>
+          <AddCoinButton onClick={() => setWatchCoinModal(true)}>
             <Plus height={16} width={16} />
           </AddCoinButton>
+          {watchCoinModal && (
+            <WatchCoinModal dismiss={() => setWatchCoinModal(false)} />
+          )}
         </Watchlist>
       </Container>
     </Wrapper>
