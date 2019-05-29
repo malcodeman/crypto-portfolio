@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import OutsideClickHandler from "react-outside-click-handler";
 
+import ThemeForm from "../../settings/components/ThemeForm";
 import { closeNavigationDrawer } from "../actions/uiActionCreators";
 
 const Wrapper = styled.div`
@@ -78,6 +79,7 @@ function NavigationDrawer(props) {
           <StyledNavigationDrawer>
             <Title>General</Title>
             <StyledLink to="/portfolios">Manage portfolios</StyledLink>
+            <ThemeForm />
             <StyledLink to="/settings">Settings</StyledLink>
             <StyledLink to="/notifications">Notifications</StyledLink>
             <Button>Contact support</Button>

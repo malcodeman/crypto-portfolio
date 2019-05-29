@@ -8,7 +8,7 @@ export default {
   error: "#E0245E",
   link: "#1B95E0",
   borderColor: "#979797",
-  borderRadius: "16px",
+  borderRadius: "6px",
   bullish: "#6cc499",
   bearish: "#e0625e",
   ibizaSunset: "linear-gradient(to right, #ee0979, #ff6a00)"
