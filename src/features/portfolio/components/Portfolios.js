@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
+import CreateNewPortfolioModal from "./CreateNewPortfolioModal";
 import { ReactComponent as PlusIcon } from "../assets/icons/plus.svg";
 
 const Wrapper = styled.div`
@@ -68,6 +69,8 @@ const CreateNewButton = styled.button`
 `;
 
 function Portfolios() {
+  const [createNewPortfolioModal, setcreateNewPortfolioModal] = useState(false);
+
   return (
     <Wrapper>
       <Search type="text" placeholder="Find a portfolio" />
@@ -77,10 +80,15 @@ function Portfolios() {
         <Item>Test</Item>
         <Item>To the moon</Item>
       </List>
-      <CreateNewButton>
+      <CreateNewButton onClick={() => setcreateNewPortfolioModal(true)}>
         <Plus />
         Create new portfolio
       </CreateNewButton>
+      {createNewPortfolioModal && (
+        <CreateNewPortfolioModal
+          dismiss={() => setcreateNewPortfolioModal(false)}
+        />
+      )}
     </Wrapper>
   );
 }
