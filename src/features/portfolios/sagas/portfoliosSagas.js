@@ -8,7 +8,7 @@ import {
   GET_MAP_FAILURE,
   GET_MAP_REQUEST,
   GET_MAP_SUCCESS
-} from "../actions/portfolioActionTypes";
+} from "../actions/portfoliosActionTypes";
 
 const getMarketQuotesLatestApi = () => {
   return axios.get(`/cryptocurrency/quotes/latest?symbol=BTC,ETH,LTC`);

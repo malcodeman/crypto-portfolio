@@ -1,7 +1,7 @@
 import {
   GET_MARKET_QUOTES_LATEST_REQUEST,
   GET_MAP_REQUEST
-} from "./portfolioActionTypes";
+} from "./portfoliosActionTypes";
 
 export const getMarketQuotesLatest = () => {
   return {

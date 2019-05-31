@@ -1,7 +1,7 @@
 import { all, fork } from "redux-saga/effects";
 
-import portfolioSagas from "../../features/portfolio/sagas/portfolioSagas";
+import portfoliosSagas from "../../features/portfolios/sagas/portfoliosSagas";
 
 export default function* rootSaga() {
-  yield all([fork(portfolioSagas)]);
+  yield all([fork(portfoliosSagas)]);
 }

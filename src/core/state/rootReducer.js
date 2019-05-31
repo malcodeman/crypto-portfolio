@@ -1,11 +1,11 @@
 import { combineReducers } from "redux";
 
-import portfolio from "../../features/portfolio/reducers/portfolioReducers";
+import portfolios from "../../features/portfolios/reducers/portfoliosReducers";
 import settings from "../../features/settings/reducers/settingsReducers";
 import ui from "../../features/ui/reducers/uiReducers";
 
 const rootReducer = combineReducers({
-  portfolio,
+  portfolios,
   settings,
   ui
 });

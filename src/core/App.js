@@ -8,7 +8,7 @@ import lightTheme from "./styles/themes/light";
 import darkTheme from "./styles/themes/dark";
 import history from "./routing/history";
 import Header from "../features/header/components/Header";
-import Portfolio from "../features/portfolio/components/Portfolio";
+import Portfolios from "../features/portfolios/components/Portfolios";
 import NavigationDrawer from "../features/ui/components/NavigationDrawer";
 
 const App = props => {
@@ -25,7 +25,7 @@ const App = props => {
         <>
           <Header />
           <NavigationDrawer />
-          <Route exact path="/" component={Portfolio} />
+          <Route exact path="/" component={Portfolios} />
         </>
       </Router>
     </ThemeProvider>

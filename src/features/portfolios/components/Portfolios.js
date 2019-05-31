@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
-import { getMarketQuotesLatest } from "../actions/portfolioActionCreators";
+import PortfoliosList from "./PortfoliosList";
+import WatchCoinModal from "./WatchCoinModal";
+import Plus from "../styles/icons/Plus";
+import { getMarketQuotesLatest } from "../actions/portfoliosActionCreators";
 import { ReactComponent as BtcIcon } from "../assets/icons/btc.svg";
 import { ReactComponent as EthIcon } from "../assets/icons/eth.svg";
 import { ReactComponent as LtcIcon } from "../assets/icons/ltc.svg";
-import Portfolios from "./Portfolios";
-import WatchCoinModal from "./WatchCoinModal";
-import Plus from "../styles/icons/Plus";
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -144,7 +144,7 @@ const AddCoinButton = styled.button`
   background-color: ${props => props.theme.primary};
 `;
 
-function Portfolio(props) {
+function Portfolios(props) {
   const { getMarketQuotesLatest, marketQuotes } = props;
   const [watchCoinModal, setWatchCoinModal] = useState(false);
 
@@ -157,7 +157,7 @@ function Portfolio(props) {
       <Container>
         <SidebarContainer>
           <Sidebar>
-            <Portfolios />
+            <PortfoliosList />
           </Sidebar>
         </SidebarContainer>
         <Watchlist>
@@ -238,7 +238,7 @@ function Portfolio(props) {
 
 const mapStateToProps = state => {
   return {
-    marketQuotes: state.portfolio.marketQuotes
+    marketQuotes: state.portfolios.marketQuotes
   };
 };
 
@@ -247,4 +247,4 @@ export default connect(
   {
     getMarketQuotesLatest
   }
-)(Portfolio);
+)(Portfolios);

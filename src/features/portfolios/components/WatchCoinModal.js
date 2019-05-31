@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Modal from "../../commonComponents/Modal";
 
 import Spin from "../../ui/components/Spin";
-import { getMap } from "../actions/portfolioActionCreators";
+import { getMap } from "../actions/portfoliosActionCreators";
 
 const Body = styled.div`
   min-width: 100vw;
@@ -130,8 +130,8 @@ function WatchCoinModal(props) {
 
 const mapStateToProps = state => {
   return {
-    map: state.portfolio.map,
-    fetchingMap: state.portfolio.fetchingMap
+    map: state.portfolios.map,
+    fetchingMap: state.portfolios.fetchingMap
   };
 };
 

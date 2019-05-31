@@ -2,7 +2,7 @@ import {
   GET_MARKET_QUOTES_LATEST_SUCCESS,
   GET_MAP_REQUEST,
   GET_MAP_SUCCESS
-} from "../actions/portfolioActionTypes";
+} from "../actions/portfoliosActionTypes";
 
 const initialMarketQuotes = {
   BTC: {

@@ -68,7 +68,7 @@ const CreateNewButton = styled.button`
   }
 `;
 
-function Portfolios() {
+function PortfoliosList() {
   const [createNewPortfolioModal, setcreateNewPortfolioModal] = useState(false);
 
   return (
@@ -93,4 +93,4 @@ function Portfolios() {
   );
 }
 
-export default Portfolios;
+export default PortfoliosList;
