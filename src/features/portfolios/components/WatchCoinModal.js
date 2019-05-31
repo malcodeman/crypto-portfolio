@@ -11,14 +11,12 @@ const Body = styled.div`
   height: 100vh;
   padding: 1em;
   overflow-y: auto;
-  transition: width 0.3s cubic-bezier(0.84, 0.02, 0.37, 0.74),
+  transition: min-width 0.3s cubic-bezier(0.84, 0.02, 0.37, 0.74),
     height 0.3s cubic-bezier(0.84, 0.02, 0.37, 0.74);
   @media (min-width: 768px) {
     min-width: 50vw;
     height: 50vh;
   }
-  border-radius: ${props => props.theme.borderRadius};
-  background-color: ${props => props.theme.backgroundPrimary};
 `;
 
 const Search = styled.input`

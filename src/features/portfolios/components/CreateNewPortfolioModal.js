@@ -16,8 +16,6 @@ const Body = styled.div`
     min-width: 50vw;
     height: 50vh;
   }
-  border-radius: ${props => props.theme.borderRadius};
-  background-color: ${props => props.theme.backgroundPrimary};
 `;
 
 const Label = styled.label`
