@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
 
 import CreateNewPortfolioModal from "./CreateNewPortfolioModal";
@@ -68,7 +69,7 @@ const CreateNewButton = styled.button`
   }
 `;
 
-function PortfoliosList() {
+function PortfoliosList(props) {
   const [createNewPortfolioModal, setcreateNewPortfolioModal] = useState(false);
 
   return (
@@ -76,9 +77,9 @@ function PortfoliosList() {
       <Search type="text" placeholder="Find a portfolio" />
       <Title>Portfolios</Title>
       <List>
-        <Item>New portfolio</Item>
-        <Item>Test</Item>
-        <Item>To the moon</Item>
+        {props.portfolios.map(portfolio => (
+          <Item>{portfolio.name}</Item>
+        ))}
       </List>
       <CreateNewButton onClick={() => setcreateNewPortfolioModal(true)}>
         <Plus />
@@ -93,4 +94,13 @@ function PortfoliosList() {
   );
 }
 
-export default PortfoliosList;
+const mapStateToProps = state => {
+  return {
+    portfolios: state.portfolios.portfolios
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  null
+)(PortfoliosList);

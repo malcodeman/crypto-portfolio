@@ -1,7 +1,8 @@
 import {
   GET_MARKET_QUOTES_LATEST_SUCCESS,
   GET_MAP_REQUEST,
-  GET_MAP_SUCCESS
+  GET_MAP_SUCCESS,
+  CREATE_NEW_PORTFOLIO
 } from "../actions/portfoliosActionTypes";
 
 const initialMarketQuotes = {
@@ -34,10 +35,22 @@ const initialMarketQuotes = {
   }
 };
 
+const initialPortfolios = [
+  {
+    name: "New portfolio",
+    coins: ["BTC", "ETH"]
+  },
+  {
+    name: "To the moon",
+    coins: ["BTC", "LTC"]
+  }
+];
+
 const initialState = {
   marketQuotes: initialMarketQuotes,
   map: [],
-  fetchingMap: false
+  fetchingMap: false,
+  portfolios: initialPortfolios
 };
 
 export default (state = initialState, action) => {
@@ -61,6 +74,11 @@ export default (state = initialState, action) => {
         ...state,
         map: action.payload,
         fetchingMap: false
+      };
+    case CREATE_NEW_PORTFOLIO:
+      return {
+        ...state,
+        portfolios: [...state.portfolios, action.payload]
       };
     default:
       return state;

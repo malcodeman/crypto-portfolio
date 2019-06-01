@@ -17,6 +17,9 @@ const Body = styled.div`
     min-width: 50vw;
     height: 50vh;
   }
+  border-radius: ${props => props.theme.borderRadius};
+  animation: ${props => props.theme.bounceInAnimation};
+  background-color: ${props => props.theme.backgroundPrimary};
 `;
 
 const Search = styled.input`
