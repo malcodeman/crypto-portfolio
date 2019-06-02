@@ -15,17 +15,17 @@ const initialPortfolios = [
     id: 1,
     name: "New portfolio",
     coins: [
-      { id: nanoid(), symbol: "BTC", price: 0, percentChange24h: 0 },
-      { id: nanoid(), symbol: "ETH", price: 0, percentChange24h: 0 },
-      { id: nanoid(), symbol: "NGC", price: 0, percentChange24h: 0 }
+      { id: nanoid(), name: "", symbol: "BTC", price: 0, percentChange24h: 0 },
+      { id: nanoid(), name: "", symbol: "ETH", price: 0, percentChange24h: 0 },
+      { id: nanoid(), name: "", symbol: "NGC", price: 0, percentChange24h: 0 }
     ]
   },
   {
     id: 2,
     name: "To the moon",
     coins: [
-      { id: nanoid(), symbol: "BTC", price: 0, percentChange24h: 0 },
-      { id: nanoid(), symbol: "LTC", price: 0, percentChange24h: 0 }
+      { id: nanoid(), name: "", symbol: "BTC", price: 0, percentChange24h: 0 },
+      { id: nanoid(), name: "", symbol: "LTC", price: 0, percentChange24h: 0 }
     ]
   }
 ];
@@ -56,6 +56,7 @@ export default (state = initialState, action) => {
                 if (coin.symbol === value[1].symbol) {
                   return {
                     ...coin,
+                    name: value[1].name,
                     price: value[1].quote.USD.price,
                     percentChange24h: value[1].quote.USD.percent_change_24h
                   };
