@@ -97,7 +97,8 @@ const CreateNewPortfolioModal = withFormik({
     name: Yup.string().required("Name is required")
   }),
   mapPropsToValues: props => ({
-    name: ""
+    name: "",
+    coins: []
   }),
   handleSubmit(payload, bag) {
     bag.props.createNewPortfolio(payload);

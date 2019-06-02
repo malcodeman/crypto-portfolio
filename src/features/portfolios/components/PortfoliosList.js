@@ -78,7 +78,7 @@ function PortfoliosList(props) {
       <Title>Portfolios</Title>
       <List>
         {props.portfolios.map(portfolio => (
-          <Item>{portfolio.name}</Item>
+          <Item key={portfolio.id}>{portfolio.name}</Item>
         ))}
       </List>
       <CreateNewButton onClick={() => setcreateNewPortfolioModal(true)}>

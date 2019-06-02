@@ -6,9 +6,6 @@ import PortfoliosList from "./PortfoliosList";
 import WatchCoinModal from "./WatchCoinModal";
 import Plus from "../styles/icons/Plus";
 import { getMarketQuotesLatest } from "../actions/portfoliosActionCreators";
-import { ReactComponent as BtcIcon } from "../assets/icons/btc.svg";
-import { ReactComponent as EthIcon } from "../assets/icons/eth.svg";
-import { ReactComponent as LtcIcon } from "../assets/icons/ltc.svg";
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -30,11 +27,10 @@ const Container = styled.div`
 `;
 
 const Header = styled.header`
-  padding: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
   margin-bottom: 20px;
-  background-color: #c33764;
-  background: linear-gradient(to right, #1d2671, #c33764);
-  color: #fff;
+  color: ${props => props.theme.primary};
   border-radius: ${props => props.theme.borderRadius};
 `;
 
@@ -42,81 +38,13 @@ const Watchlist = styled.div`
   color: ${props => props.theme.primary};
 `;
 
-const HeaderCell = styled.div`
-  text-transform: uppercase;
-  font-size: 0.6rem;
-  @media (min-width: 576px) {
-    font-size: 0.8rem;
-  }
-  color: ${props => props.theme.secondary};
-`;
-
-const TableHeader = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  padding: 10px 0;
-  ${HeaderCell}:not(:first-child) {
-    text-align: right;
-  }
-  border-bottom: 1px solid ${props => props.theme.borderColor};
-`;
-
-const BitcoinIcon = styled(BtcIcon)`
-  margin-right: 10px;
-`;
-
-const EthereumIcon = styled(EthIcon)`
-  margin-right: 10px;
-`;
-
-const LitecoinIcon = styled(LtcIcon)`
-  margin-right: 10px;
-`;
-
-const StandarCell = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 0.8rem;
-  @media (min-width: 576px) {
-    font-size: 1rem;
-  }
-`;
-
-const Price = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+const Portfolio = styled.div`
+  margin-bottom: 20px;
 `;
 
 const PercentChange = styled.span`
   color: ${props =>
     props.bullish ? props.theme.bullish : props.theme.bearish};
-`;
-
-const Row = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  padding: 10px 0;
-  ${StandarCell}:not(:first-child) {
-    justify-content: flex-end;
-  }
-  border-bottom: 1px solid ${props => props.theme.borderColor};
-`;
-
-const AddButton = styled.button`
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  padding: 6px 16px;
-  font-size: 0.8rem;
-  @media (min-width: 576px) {
-    font-size: 1rem;
-  }
-  color: ${props => props.theme.primary};
-  border-radius: ${props => props.theme.borderRadius};
-  border: 1px solid ${props => props.theme.borderColor};
 `;
 
 const SidebarContainer = styled.div`
@@ -132,24 +60,50 @@ const Sidebar = styled.div`
   top: 64px;
 `;
 
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
+  grid-gap: 20px;
+`;
+
 const AddCoinButton = styled.button`
   display: flex;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
   border: 0;
-  border-radius: 50%;
   padding: 10px;
-  margin: 16px auto;
-  color: ${props => props.theme.backgroundPrimary};
-  background-color: ${props => props.theme.primary};
+  height: 64px;
+  width: 64px;
+  color: ${props => props.theme.primary};
+  border-radius: ${props => props.theme.borderRadius};
+  background-color: ${props => props.theme.backgroundSecondary};
+`;
+
+const Coin = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  color: ${props => props.theme.primary};
+  border-radius: ${props => props.theme.borderRadius};
+  background-color: ${props => props.theme.backgroundSecondary};
 `;
 
 function Portfolios(props) {
-  const { getMarketQuotesLatest, marketQuotes } = props;
+  const { getMarketQuotesLatest, portfolios } = props;
   const [watchCoinModal, setWatchCoinModal] = useState(false);
 
   useEffect(() => {
-    getMarketQuotesLatest();
+    let symbols = "";
+
+    portfolios.forEach(portfolio => {
+      portfolio.coins.forEach((coin, index) => {
+        symbols += `,${coin.symbol}`;
+      });
+    });
+
+    getMarketQuotesLatest(symbols.substring(1));
   }, []);
 
   return (
@@ -161,72 +115,26 @@ function Portfolios(props) {
           </Sidebar>
         </SidebarContainer>
         <Watchlist>
-          <Header>New Portfolio</Header>
-          <TableHeader>
-            <HeaderCell>Coin</HeaderCell>
-            <HeaderCell>Price</HeaderCell>
-            <HeaderCell>Holdings</HeaderCell>
-          </TableHeader>
-          <Row>
-            <StandarCell>
-              <BitcoinIcon />
-              {marketQuotes.BTC.symbol}
-            </StandarCell>
-            <StandarCell>
-              <Price>
-                <span />${marketQuotes.BTC.quote.USD.price}
-                <PercentChange
-                  bullish={marketQuotes.BTC.quote.USD.percent_change_24h > 0}
-                >
-                  {marketQuotes.BTC.quote.USD.percent_change_24h}
-                </PercentChange>
-              </Price>
-            </StandarCell>
-            <StandarCell>
-              <AddButton>Add</AddButton>
-            </StandarCell>
-          </Row>
-          <Row>
-            <StandarCell>
-              <EthereumIcon />
-              {marketQuotes.ETH.symbol}
-            </StandarCell>
-            <StandarCell>
-              <Price>
-                <span />${marketQuotes.ETH.quote.USD.price}
-                <PercentChange
-                  bullish={marketQuotes.ETH.quote.USD.percent_change_24h > 0}
-                >
-                  {marketQuotes.ETH.quote.USD.percent_change_24h}
-                </PercentChange>
-              </Price>
-            </StandarCell>
-            <StandarCell>
-              <AddButton>Add</AddButton>
-            </StandarCell>
-          </Row>
-          <Row>
-            <StandarCell>
-              <LitecoinIcon />
-              {marketQuotes.LTC.symbol}
-            </StandarCell>
-            <StandarCell>
-              <Price>
-                <span />${marketQuotes.LTC.quote.USD.price}
-                <PercentChange
-                  bullish={marketQuotes.LTC.quote.USD.percent_change_24h > 0}
-                >
-                  {marketQuotes.LTC.quote.USD.percent_change_24h}
-                </PercentChange>
-              </Price>
-            </StandarCell>
-            <StandarCell>
-              <AddButton>Add</AddButton>
-            </StandarCell>
-          </Row>
-          <AddCoinButton onClick={() => setWatchCoinModal(true)}>
-            <Plus height={16} width={16} />
-          </AddCoinButton>
+          {portfolios.map(portfolio => {
+            return (
+              <Portfolio key={portfolio.id}>
+                <Header>{portfolio.name}</Header>
+                <Grid>
+                  {portfolio.coins.map(coin => (
+                    <Coin key={coin.id}>
+                      {coin.symbol} - {coin.price} -
+                      <PercentChange bullish={coin.percentChange24h > 0}>
+                        {coin.percentChange24h}
+                      </PercentChange>
+                    </Coin>
+                  ))}
+                  <AddCoinButton onClick={() => setWatchCoinModal(true)}>
+                    <Plus height={16} width={16} />
+                  </AddCoinButton>
+                </Grid>
+              </Portfolio>
+            );
+          })}
           {watchCoinModal && (
             <WatchCoinModal dismiss={() => setWatchCoinModal(false)} />
           )}
@@ -238,7 +146,7 @@ function Portfolios(props) {
 
 const mapStateToProps = state => {
   return {
-    marketQuotes: state.portfolios.marketQuotes
+    portfolios: state.portfolios.portfolios
   };
 };
 
