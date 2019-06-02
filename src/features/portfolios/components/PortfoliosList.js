@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 
 import CreateNewPortfolioModal from "./CreateNewPortfolioModal";
-import { ReactComponent as PlusIcon } from "../assets/icons/plus.svg";
+import Plus from "../styles/icons/Plus";
 
 const Wrapper = styled.div`
   display: flex;
@@ -47,12 +47,6 @@ const Item = styled.li`
   }
 `;
 
-const Plus = styled(PlusIcon)`
-  height: 16px;
-  width: 16px;
-  margin-right: 10px;
-`;
-
 const CreateNewButton = styled.button`
   display: flex;
   align-items: center;
@@ -69,6 +63,10 @@ const CreateNewButton = styled.button`
   }
 `;
 
+const ButtonText = styled.span`
+  margin-left: 10px;
+`;
+
 function PortfoliosList(props) {
   const [createNewPortfolioModal, setcreateNewPortfolioModal] = useState(false);
 
@@ -82,8 +80,8 @@ function PortfoliosList(props) {
         ))}
       </List>
       <CreateNewButton onClick={() => setcreateNewPortfolioModal(true)}>
-        <Plus />
-        Create new portfolio
+        <Plus height={16} width={16} />
+        <ButtonText>Create new portfolio</ButtonText>
       </CreateNewButton>
       {createNewPortfolioModal && (
         <CreateNewPortfolioModal

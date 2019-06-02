@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { Form, Field, withFormik } from "formik";
 import * as Yup from "yup";
+import nanoid from "nanoid";
 
 import Modal from "../../commonComponents/Modal";
 import { createNewPortfolio } from "../actions/portfoliosActionCreators";
@@ -82,7 +83,7 @@ function FormikForm(props) {
       <Body>
         <StyledForm>
           <Label>Portfolio name</Label>
-          <Input name="name" placeholder="New portfolio" />
+          <Input autoFocus name="name" placeholder="New portfolio" />
           {touched.name &&
             errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
           <Submit>Create portfolio</Submit>
@@ -97,7 +98,8 @@ const CreateNewPortfolioModal = withFormik({
     name: Yup.string().required("Name is required")
   }),
   mapPropsToValues: props => ({
-    name: "",
+    id: nanoid(),
+    name: "New portfolio",
     coins: []
   }),
   handleSubmit(payload, bag) {

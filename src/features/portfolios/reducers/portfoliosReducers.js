@@ -1,9 +1,13 @@
+import nanoid from "nanoid";
+
 import {
   GET_MARKET_QUOTES_LATEST_SUCCESS,
   GET_LISTING_LATEST_SUCCESS,
   GET_MAP_REQUEST,
   GET_MAP_SUCCESS,
-  CREATE_NEW_PORTFOLIO
+  CREATE_NEW_PORTFOLIO,
+  WATCH_COIN,
+  SET_PORTFOLIO_ID
 } from "../actions/portfoliosActionTypes";
 
 const initialPortfolios = [
@@ -11,17 +15,17 @@ const initialPortfolios = [
     id: 1,
     name: "New portfolio",
     coins: [
-      { id: 1, symbol: "BTC", price: 0, percentChange24h: 0 },
-      { id: 2, symbol: "ETH", price: 0, percentChange24h: 0 },
-      { id: 3, symbol: "NGC", price: 0, percentChange24h: 0 }
+      { id: nanoid(), symbol: "BTC", price: 0, percentChange24h: 0 },
+      { id: nanoid(), symbol: "ETH", price: 0, percentChange24h: 0 },
+      { id: nanoid(), symbol: "NGC", price: 0, percentChange24h: 0 }
     ]
   },
   {
     id: 2,
     name: "To the moon",
     coins: [
-      { id: 2, symbol: "BTC", price: 0, percentChange24h: 0 },
-      { id: 3, symbol: "LTC", price: 0, percentChange24h: 0 }
+      { id: nanoid(), symbol: "BTC", price: 0, percentChange24h: 0 },
+      { id: nanoid(), symbol: "LTC", price: 0, percentChange24h: 0 }
     ]
   }
 ];
@@ -30,7 +34,9 @@ const initialState = {
   map: [],
   fetchingMap: false,
   portfolios: initialPortfolios,
-  listing: []
+  listing: [],
+  symbols: "BTC,ETH,NGC,LTC",
+  portfolioId: ""
 };
 
 export default (state = initialState, action) => {
@@ -65,10 +71,37 @@ export default (state = initialState, action) => {
         ...state,
         listing: action.payload
       };
+    case WATCH_COIN:
+      return {
+        ...state,
+        symbols: `${state.symbols},${action.payload.coin.symbol}`,
+        portfolios: state.portfolios.map(portfolio => {
+          if (portfolio.id === action.payload.portfolioId) {
+            return {
+              ...portfolio,
+              coins: [
+                ...portfolio.coins,
+                {
+                  id: action.payload.coin.id,
+                  symbol: action.payload.coin.symbol,
+                  price: 0,
+                  percentChange24h: 0
+                }
+              ]
+            };
+          }
+          return portfolio;
+        })
+      };
     case GET_MAP_REQUEST:
       return {
         ...state,
         fetchingMap: true
+      };
+    case SET_PORTFOLIO_ID:
+      return {
+        ...state,
+        portfolioId: action.payload
       };
     case GET_MAP_SUCCESS:
       return {

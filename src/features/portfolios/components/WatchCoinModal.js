@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Modal from "../../commonComponents/Modal";
 
 import Spin from "../../ui/components/Spin";
-import { getMap } from "../actions/portfoliosActionCreators";
+import { getMap, watchCoin } from "../actions/portfoliosActionCreators";
 
 const Body = styled.div`
   min-width: 100vw;
@@ -97,7 +97,7 @@ const WatchCoinButton = styled.button`
 `;
 
 function WatchCoinModal(props) {
-  const { fetchingMap, map } = props;
+  const { fetchingMap, map, watchCoin, portfolioId } = props;
 
   useEffect(() => {
     const { getMap } = props;
@@ -108,7 +108,7 @@ function WatchCoinModal(props) {
   return (
     <Modal dismiss={props.dismiss}>
       <Body>
-        <Search type="text" placeholder="Search over 2.000 coins" />
+        <Search autoFocus type="text" placeholder="Search over 2.000 coins" />
         <Title>All coins</Title>
         {map.length === 0 &&
           fetchingMap && (
@@ -117,11 +117,13 @@ function WatchCoinModal(props) {
             </SpinWrapper>
           )}
         {map.map((coin, index) => (
-          <Coin>
+          <Coin key={coin.id}>
             <Index>{index + 1}</Index>
             <Name>{coin.name}</Name>
             <Symbol>{coin.symbol}</Symbol>
-            <WatchCoinButton>Watch</WatchCoinButton>
+            <WatchCoinButton onClick={() => watchCoin({ portfolioId, coin })}>
+              Watch
+            </WatchCoinButton>
           </Coin>
         ))}
       </Body>
@@ -132,13 +134,15 @@ function WatchCoinModal(props) {
 const mapStateToProps = state => {
   return {
     map: state.portfolios.map,
-    fetchingMap: state.portfolios.fetchingMap
+    fetchingMap: state.portfolios.fetchingMap,
+    portfolioId: state.portfolios.portfolioId
   };
 };
 
 export default connect(
   mapStateToProps,
   {
-    getMap
+    getMap,
+    watchCoin
   }
 )(WatchCoinModal);

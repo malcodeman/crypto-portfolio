@@ -14,7 +14,10 @@ const store = createStore(
 );
 
 store.subscribe(() => {
-  saveState({ settings: store.getState().settings });
+  saveState({
+    settings: store.getState().settings,
+    portfolios: store.getState().portfolios
+  });
 });
 
 sagaMiddleware.run(rootSaga);

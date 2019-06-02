@@ -5,7 +5,10 @@ import styled from "styled-components";
 import PortfoliosList from "./PortfoliosList";
 import WatchCoinModal from "./WatchCoinModal";
 import Plus from "../styles/icons/Plus";
-import { getMarketQuotesLatest } from "../actions/portfoliosActionCreators";
+import {
+  getMarketQuotesLatest,
+  setPortfolioId
+} from "../actions/portfoliosActionCreators";
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -91,20 +94,20 @@ const Coin = styled.div`
 `;
 
 function Portfolios(props) {
-  const { getMarketQuotesLatest, portfolios } = props;
+  const { getMarketQuotesLatest, setPortfolioId, portfolios, symbols } = props;
   const [watchCoinModal, setWatchCoinModal] = useState(false);
 
-  useEffect(() => {
-    let symbols = "";
+  useEffect(
+    () => {
+      getMarketQuotesLatest(symbols);
+    },
+    [symbols]
+  );
 
-    portfolios.forEach(portfolio => {
-      portfolio.coins.forEach((coin, index) => {
-        symbols += `,${coin.symbol}`;
-      });
-    });
-
-    getMarketQuotesLatest(symbols.substring(1));
-  }, []);
+  function handleOnClick(id) {
+    setPortfolioId(id);
+    setWatchCoinModal(true);
+  }
 
   return (
     <Wrapper>
@@ -128,7 +131,7 @@ function Portfolios(props) {
                       </PercentChange>
                     </Coin>
                   ))}
-                  <AddCoinButton onClick={() => setWatchCoinModal(true)}>
+                  <AddCoinButton onClick={() => handleOnClick(portfolio.id)}>
                     <Plus height={16} width={16} />
                   </AddCoinButton>
                 </Grid>
@@ -146,13 +149,15 @@ function Portfolios(props) {
 
 const mapStateToProps = state => {
   return {
-    portfolios: state.portfolios.portfolios
+    portfolios: state.portfolios.portfolios,
+    symbols: state.portfolios.symbols
   };
 };
 
 export default connect(
   mapStateToProps,
   {
-    getMarketQuotesLatest
+    getMarketQuotesLatest,
+    setPortfolioId
   }
 )(Portfolios);

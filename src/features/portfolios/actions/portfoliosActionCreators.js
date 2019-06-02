@@ -2,7 +2,9 @@ import {
   GET_MARKET_QUOTES_LATEST_REQUEST,
   GET_LISTING_LATEST_REQUEST,
   GET_MAP_REQUEST,
-  CREATE_NEW_PORTFOLIO
+  CREATE_NEW_PORTFOLIO,
+  WATCH_COIN,
+  SET_PORTFOLIO_ID
 } from "./portfoliosActionTypes";
 
 export const getMarketQuotesLatest = payload => {
@@ -27,6 +29,20 @@ export const getMap = () => {
 export const createNewPortfolio = payload => {
   return {
     type: CREATE_NEW_PORTFOLIO,
+    payload
+  };
+};
+
+export const watchCoin = payload => {
+  return {
+    type: WATCH_COIN,
+    payload
+  };
+};
+
+export const setPortfolioId = payload => {
+  return {
+    type: SET_PORTFOLIO_ID,
     payload
   };
 };
