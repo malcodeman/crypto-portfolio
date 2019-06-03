@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import CreateNewPortfolioModal from "./CreateNewPortfolioModal";
 import Plus from "../styles/icons/Plus";
+import Grab from "../styles/icons/Grab";
 
 const Wrapper = styled.div`
   display: flex;
@@ -36,15 +37,28 @@ const List = styled.ul`
   padding: 0;
 `;
 
+const StyledGrab = styled(Grab)`
+  visibility: hidden;
+`;
+
 const Item = styled.li`
-  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 10px;
   cursor: pointer;
   color: ${props => props.theme.primary};
   border-radius: ${props => props.theme.borderRadius};
   &:hover {
     background-color: ${props => props.theme.backgroundSecondary};
+    ${StyledGrab} {
+      visibility: visible;
+    }
   }
+`;
+
+const ItemText = styled.span`
+  font-size: 0.8rem;
 `;
 
 const CreateNewButton = styled.button`
@@ -76,7 +90,10 @@ function PortfoliosList(props) {
       <Title>Portfolios</Title>
       <List>
         {props.portfolios.map(portfolio => (
-          <Item key={portfolio.id}>{portfolio.name}</Item>
+          <Item key={portfolio.id}>
+            <ItemText>{portfolio.name}</ItemText>
+            <StyledGrab height={16} width={16} />
+          </Item>
         ))}
       </List>
       <CreateNewButton onClick={() => setcreateNewPortfolioModal(true)}>
