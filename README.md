@@ -38,6 +38,7 @@ REACT_APP_API_URL = "http://localhost:4000/api"
 - Languages
 - Signals
 - Settings
+- News
 
 ## License
 
