@@ -41,6 +41,8 @@ REACT_APP_API_URL = "http://localhost:4000/api"
 - News
 - Portfolios drag & drop
 - Add a coin pagination
+- Show balance toggle
+- Search portfolios
 
 ## License
 
