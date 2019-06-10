@@ -5,17 +5,37 @@ import styled from "styled-components";
 import CreateNewPortfolioModal from "./CreateNewPortfolioModal";
 import Plus from "../styles/icons/Plus";
 import Grab from "../styles/icons/Grab";
+import Grid from "../styles/icons/Grid";
+import List from "../styles/icons/List";
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
+const Header = styled.header`
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+`;
+
+const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: ${props => props.theme.primary};
+  background: ${props =>
+    props.active ? props.theme.backgroundSecondary : "transparent"};
+`;
+
 const Search = styled.input`
   border: 0;
   font-size: 0.8rem;
   padding: 10px;
-  margin-bottom: 16px;
+  margin-right: 10px;
+  flex-grow: 1;
   color: ${props => props.theme.primary};
   border-radius: ${props => props.theme.borderRadius};
   background-color: ${props => props.theme.backgroundSecondary};
@@ -31,7 +51,7 @@ const Title = styled.h2`
   color: ${props => props.theme.primary}7F;
 `;
 
-const List = styled.ul`
+const StyledList = styled.ul`
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -86,16 +106,24 @@ function PortfoliosList(props) {
 
   return (
     <Wrapper>
-      <Search type="text" placeholder="Find a portfolio" />
+      <Header>
+        <Search type="text" placeholder="Find a portfolio" />
+        <IconWrapper active>
+          <Grid height={16} width={16} />
+        </IconWrapper>
+        <IconWrapper>
+          <List height={16} width={16} />
+        </IconWrapper>
+      </Header>
       <Title>Portfolios</Title>
-      <List>
+      <StyledList>
         {props.portfolios.map(portfolio => (
           <Item key={portfolio.id}>
             <ItemText>{portfolio.name}</ItemText>
             <StyledGrab height={16} width={16} />
           </Item>
         ))}
-      </List>
+      </StyledList>
       <CreateNewButton onClick={() => setcreateNewPortfolioModal(true)}>
         <Plus height={16} width={16} />
         <ButtonText>Create new portfolio</ButtonText>
