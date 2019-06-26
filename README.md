@@ -32,6 +32,12 @@ yarn install && yarn start
 REACT_APP_API_URL = "http://localhost:4000/api"
 ```
 
+.env.production.local:
+
+```
+REACT_APP_API_URL = "https://malcodeman-cmc-api-wrapper.glitch.me/api"
+```
+
 ## Todos
 
 - Passcode
