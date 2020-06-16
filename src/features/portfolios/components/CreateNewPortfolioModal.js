@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { Form, Field, withFormik } from "formik";
 import * as Yup from "yup";
-import nanoid from "nanoid";
+import { nanoid } from "nanoid";
 
 import Modal from "../../commonComponents/Modal";
 import { createNewPortfolio } from "../actions/portfoliosActionCreators";
@@ -19,9 +19,9 @@ const Body = styled.div`
     min-width: 50vw;
     height: 50vh;
   }
-  border-radius: ${props => props.theme.borderRadius};
-  animation: ${props => props.theme.bounceInAnimation};
-  background-color: ${props => props.theme.backgroundPrimary};
+  border-radius: ${(props) => props.theme.borderRadius};
+  animation: ${(props) => props.theme.bounceInAnimation};
+  background-color: ${(props) => props.theme.backgroundPrimary};
 `;
 
 const StyledForm = styled(Form)`
@@ -34,7 +34,7 @@ const Label = styled.label`
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: ${props => props.theme.primary}7F;
+  color: ${(props) => props.theme.primary}7F;
 `;
 
 const Input = styled(Field)`
@@ -42,17 +42,17 @@ const Input = styled(Field)`
   font-size: 0.8rem;
   padding: 10px;
   width: 100%;
-  color: ${props => props.theme.primary};
-  border-radius: ${props => props.theme.borderRadius};
-  background-color: ${props => props.theme.backgroundSecondary};
+  color: ${(props) => props.theme.primary};
+  border-radius: ${(props) => props.theme.borderRadius};
+  background-color: ${(props) => props.theme.backgroundSecondary};
 `;
 
 const ErrorMessage = styled.span`
   margin-top: 0.5em;
   font-size: 0.8rem;
   font-weight: 500;
-  color: ${props => props.theme.error};
-  animation: ${props => props.theme.bounceInAnimation};
+  color: ${(props) => props.theme.error};
+  animation: ${(props) => props.theme.bounceInAnimation};
 `;
 
 const Submit = styled.button`
@@ -71,8 +71,8 @@ const Submit = styled.button`
   @media (min-width: 768px) {
     min-width: 128px;
   }
-  color: ${props => props.theme.backgroundPrimary};
-  background-color: ${props => props.theme.primary};
+  color: ${(props) => props.theme.backgroundPrimary};
+  background-color: ${(props) => props.theme.primary};
 `;
 
 function FormikForm(props) {
@@ -84,8 +84,9 @@ function FormikForm(props) {
         <StyledForm>
           <Label>Portfolio name</Label>
           <Input autoFocus name="name" placeholder="New portfolio" />
-          {touched.name &&
-            errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
+          {touched.name && errors.name && (
+            <ErrorMessage>{errors.name}</ErrorMessage>
+          )}
           <Submit>Create portfolio</Submit>
         </StyledForm>
       </Body>
@@ -95,20 +96,17 @@ function FormikForm(props) {
 
 const CreateNewPortfolioModal = withFormik({
   validationSchema: Yup.object().shape({
-    name: Yup.string().required("Name is required")
+    name: Yup.string().required("Name is required"),
   }),
-  mapPropsToValues: props => ({
+  mapPropsToValues: (props) => ({
     id: nanoid(),
     name: "New portfolio",
-    coins: []
+    coins: [],
   }),
   handleSubmit(payload, bag) {
     bag.props.createNewPortfolio(payload);
     bag.props.dismiss();
-  }
+  },
 })(FormikForm);
 
-export default connect(
-  null,
-  { createNewPortfolio }
-)(CreateNewPortfolioModal);
+export default connect(null, { createNewPortfolio })(CreateNewPortfolioModal);

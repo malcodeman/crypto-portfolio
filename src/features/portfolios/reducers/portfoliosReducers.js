@@ -1,4 +1,4 @@
-import nanoid from "nanoid";
+import { nanoid } from "nanoid";
 
 import {
   GET_MARKET_QUOTES_LATEST_SUCCESS,
@@ -7,7 +7,7 @@ import {
   GET_MAP_SUCCESS,
   CREATE_NEW_PORTFOLIO,
   WATCH_COIN,
-  SET_PORTFOLIO_ID
+  SET_PORTFOLIO_ID,
 } from "../actions/portfoliosActionTypes";
 
 const initialPortfolios = [
@@ -17,17 +17,17 @@ const initialPortfolios = [
     coins: [
       { id: nanoid(), name: "", symbol: "BTC", price: 0, percentChange24h: 0 },
       { id: nanoid(), name: "", symbol: "ETH", price: 0, percentChange24h: 0 },
-      { id: nanoid(), name: "", symbol: "NGC", price: 0, percentChange24h: 0 }
-    ]
+      { id: nanoid(), name: "", symbol: "NGC", price: 0, percentChange24h: 0 },
+    ],
   },
   {
     id: 2,
     name: "To the moon",
     coins: [
       { id: nanoid(), name: "", symbol: "BTC", price: 0, percentChange24h: 0 },
-      { id: nanoid(), name: "", symbol: "LTC", price: 0, percentChange24h: 0 }
-    ]
-  }
+      { id: nanoid(), name: "", symbol: "LTC", price: 0, percentChange24h: 0 },
+    ],
+  },
 ];
 
 const initialState = {
@@ -36,7 +36,7 @@ const initialState = {
   portfolios: initialPortfolios,
   listing: [],
   symbols: "BTC,ETH,NGC,LTC",
-  portfolioId: ""
+  portfolioId: "",
 };
 
 export default (state = initialState, action) => {
@@ -48,35 +48,35 @@ export default (state = initialState, action) => {
     case GET_MARKET_QUOTES_LATEST_SUCCESS:
       return {
         ...state,
-        portfolios: state.portfolios.map(portfolio => {
+        portfolios: state.portfolios.map((portfolio) => {
           return {
             ...portfolio,
-            coins: portfolio.coins.map(coin => {
+            coins: portfolio.coins.map((coin) => {
               for (const value of Object.entries(action.payload)) {
                 if (coin.symbol === value[1].symbol) {
                   return {
                     ...coin,
                     name: value[1].name,
                     price: value[1].quote.USD.price,
-                    percentChange24h: value[1].quote.USD.percent_change_24h
+                    percentChange24h: value[1].quote.USD.percent_change_24h,
                   };
                 }
               }
               return coin;
-            })
+            }),
           };
-        })
+        }),
       };
     case GET_LISTING_LATEST_SUCCESS:
       return {
         ...state,
-        listing: action.payload
+        listing: action.payload,
       };
     case WATCH_COIN:
       return {
         ...state,
         symbols: `${state.symbols},${action.payload.coin.symbol}`,
-        portfolios: state.portfolios.map(portfolio => {
+        portfolios: state.portfolios.map((portfolio) => {
           if (portfolio.id === action.payload.portfolioId) {
             return {
               ...portfolio,
@@ -86,34 +86,34 @@ export default (state = initialState, action) => {
                   id: action.payload.coin.id,
                   symbol: action.payload.coin.symbol,
                   price: 0,
-                  percentChange24h: 0
-                }
-              ]
+                  percentChange24h: 0,
+                },
+              ],
             };
           }
           return portfolio;
-        })
+        }),
       };
     case GET_MAP_REQUEST:
       return {
         ...state,
-        fetchingMap: true
+        fetchingMap: true,
       };
     case SET_PORTFOLIO_ID:
       return {
         ...state,
-        portfolioId: action.payload
+        portfolioId: action.payload,
       };
     case GET_MAP_SUCCESS:
       return {
         ...state,
         map: action.payload,
-        fetchingMap: false
+        fetchingMap: false,
       };
     case CREATE_NEW_PORTFOLIO:
       return {
         ...state,
-        portfolios: [...state.portfolios, action.payload]
+        portfolios: [...state.portfolios, action.payload],
       };
     default:
       return state;
