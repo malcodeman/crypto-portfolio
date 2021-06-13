@@ -23,7 +23,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "yarn build && surge build price.surge.sh"
+    "deploy": "yarn build && mv build/index.html build/200.html && surge build price.surge.sh"
   },
   "eslintConfig": {
     "extends": "react-app"
