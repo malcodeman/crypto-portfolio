@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import OutsideClickHandler from "react-outside-click-handler";
+import { useClickAway } from "react-use";
 
 import ThemeForm from "../../settings/components/ThemeForm";
 import { closeNavigationDrawer } from "../actions/uiActionCreators";
@@ -25,7 +25,7 @@ const StyledNavigationDrawer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: ${props => props.theme.backgroundPrimary};
+  background-color: ${(props) => props.theme.backgroundPrimary};
 `;
 
 const Title = styled.h2`
@@ -38,7 +38,7 @@ const Title = styled.h2`
   :not(:first-child) {
     margin-top: 16px;
   }
-  color: ${props => props.theme.primary}7F;
+  color: ${(props) => props.theme.primary}7F;
 `;
 
 const StyledLink = styled(Link)`
@@ -48,9 +48,9 @@ const StyledLink = styled(Link)`
   padding: 10px;
   cursor: pointer;
   text-transform: capitalize;
-  color: ${props => props.theme.primary};
+  color: ${(props) => props.theme.primary};
   &:hover {
-    background-color: ${props => props.theme.backgroundSecondary};
+    background-color: ${(props) => props.theme.backgroundSecondary};
   }
 `;
 
@@ -63,45 +63,43 @@ const Button = styled.button`
   border: 0;
   background-color: transparent;
   text-transform: capitalize;
-  color: ${props => props.theme.primary};
+  color: ${(props) => props.theme.primary};
   &:hover {
-    background-color: ${props => props.theme.backgroundSecondary};
+    background-color: ${(props) => props.theme.backgroundSecondary};
   }
 `;
 
 function NavigationDrawer(props) {
   const { navigationDrawer, closeNavigationDrawer } = props;
+  const ref = React.useRef(null);
+
+  useClickAway(ref, closeNavigationDrawer);
 
   if (navigationDrawer) {
     return (
       <Wrapper>
-        <OutsideClickHandler onOutsideClick={() => closeNavigationDrawer()}>
-          <StyledNavigationDrawer>
-            <Title>General</Title>
-            <StyledLink to="/portfolios">Manage portfolios</StyledLink>
-            <ThemeForm />
-            <StyledLink to="/settings">Settings</StyledLink>
-            <StyledLink to="/notifications">Notifications</StyledLink>
-            <Button>Contact support</Button>
-            <Title>Sharing</Title>
-            <Button>Share screenshot</Button>
-          </StyledNavigationDrawer>
-        </OutsideClickHandler>
+        <StyledNavigationDrawer ref={ref}>
+          <Title>General</Title>
+          <StyledLink to="/portfolios">Manage portfolios</StyledLink>
+          <ThemeForm />
+          <StyledLink to="/settings">Settings</StyledLink>
+          <StyledLink to="/notifications">Notifications</StyledLink>
+          <Button>Contact support</Button>
+          <Title>Sharing</Title>
+          <Button>Share screenshot</Button>
+        </StyledNavigationDrawer>
       </Wrapper>
     );
   }
   return null;
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    navigationDrawer: state.ui.navigationDrawer
+    navigationDrawer: state.ui.navigationDrawer,
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    closeNavigationDrawer
-  }
-)(NavigationDrawer);
+export default connect(mapStateToProps, {
+  closeNavigationDrawer,
+})(NavigationDrawer);

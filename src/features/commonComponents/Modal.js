@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
-import OutsideClickHandler from "react-outside-click-handler";
+import { useClickAway } from "react-use";
 
 const MODAL_ROOT = document.getElementById("modal-root");
 
@@ -20,11 +20,13 @@ const StyledModal = styled.div`
 `;
 
 function Modal(props) {
+  const ref = React.useRef(null);
+
+  useClickAway(ref, props.dismiss);
+
   return ReactDOM.createPortal(
     <StyledModal>
-      <OutsideClickHandler onOutsideClick={props.dismiss}>
-        {props.children}
-      </OutsideClickHandler>
+      <div ref={ref}>{props.children}</div>
     </StyledModal>,
     MODAL_ROOT
   );
