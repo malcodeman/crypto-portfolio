@@ -1,9 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { Form, Field, withFormik } from "formik";
-import * as Yup from "yup";
 import { nanoid } from "nanoid";
+import { useForm } from "react-hook-form";
 
 import Modal from "../../commonComponents/Modal";
 import { createNewPortfolio } from "../actions/portfoliosActionCreators";
@@ -24,7 +23,7 @@ const Body = styled.div`
   background-color: ${(props) => props.theme.backgroundPrimary};
 `;
 
-const StyledForm = styled(Form)`
+const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -37,7 +36,7 @@ const Label = styled.label`
   color: ${(props) => props.theme.primary}7F;
 `;
 
-const Input = styled(Field)`
+const Input = styled.input`
   border: 0;
   font-size: 0.8rem;
   padding: 10px;
@@ -75,38 +74,44 @@ const Submit = styled.button`
   background-color: ${(props) => props.theme.primary};
 `;
 
-function FormikForm(props) {
-  const { touched, errors } = props;
+function CreateNewPortfolioModal(props) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      name: "New portfolio",
+    },
+  });
+
+  function onSubmit(data) {
+    const payload = {
+      id: nanoid(),
+      name: data.name,
+      coins: [],
+    };
+    props.createNewPortfolio(payload);
+    props.dismiss();
+  }
 
   return (
     <Modal dismiss={props.dismiss}>
       <Body>
-        <StyledForm>
+        <StyledForm onSubmit={handleSubmit(onSubmit)}>
           <Label>Portfolio name</Label>
-          <Input autoFocus name="name" placeholder="New portfolio" />
-          {touched.name && errors.name && (
-            <ErrorMessage>{errors.name}</ErrorMessage>
-          )}
+          <Input
+            placeholder="New portfolio"
+            {...register("name", {
+              required: { value: true, message: "Name is required!" },
+            })}
+          />
+          {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
           <Submit>Create portfolio</Submit>
         </StyledForm>
       </Body>
     </Modal>
   );
 }
-
-const CreateNewPortfolioModal = withFormik({
-  validationSchema: Yup.object().shape({
-    name: Yup.string().required("Name is required"),
-  }),
-  mapPropsToValues: (props) => ({
-    id: nanoid(),
-    name: "New portfolio",
-    coins: [],
-  }),
-  handleSubmit(payload, bag) {
-    bag.props.createNewPortfolio(payload);
-    bag.props.dismiss();
-  },
-})(FormikForm);
 
 export default connect(null, { createNewPortfolio })(CreateNewPortfolioModal);
