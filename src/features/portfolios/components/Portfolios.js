@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 import PortfoliosList from "./PortfoliosList";
@@ -7,15 +7,15 @@ import WatchCoinModal from "./WatchCoinModal";
 import Coin from "./Coin";
 import Plus from "../styles/icons/Plus";
 import {
-  getMarketQuotesLatest,
-  setPortfolioId
-} from "../actions/portfoliosActionCreators";
+  GET_MARKET_QUOTES_LATEST_REQUEST,
+  SET_PORTFOLIO_ID,
+} from "../actions/portfoliosActionTypes";
 
 const Wrapper = styled.div`
   min-height: 100vh;
   transition: background-color 0.2s ease;
-  background-color: ${props => props.theme.backgroundPrimary};
-  transition: ${props => props.theme.backgroundColorTransition};
+  background-color: ${(props) => props.theme.backgroundPrimary};
+  transition: ${(props) => props.theme.backgroundColorTransition};
 `;
 
 const Container = styled.div`
@@ -34,12 +34,12 @@ const Header = styled.header`
   font-size: 0.8rem;
   font-weight: 500;
   margin-bottom: 20px;
-  color: ${props => props.theme.primary};
-  border-radius: ${props => props.theme.borderRadius};
+  color: ${(props) => props.theme.primary};
+  border-radius: ${(props) => props.theme.borderRadius};
 `;
 
 const Watchlist = styled.div`
-  color: ${props => props.theme.primary};
+  color: ${(props) => props.theme.primary};
 `;
 
 const Portfolio = styled.div`
@@ -80,9 +80,9 @@ const AddCoinButton = styled.button`
   padding: 10px;
   height: 100%;
   width: 100%;
-  color: ${props => props.theme.primary};
-  border-radius: ${props => props.theme.borderRadius};
-  background-color: ${props => props.theme.backgroundSecondary};
+  color: ${(props) => props.theme.primary};
+  border-radius: ${(props) => props.theme.borderRadius};
+  background-color: ${(props) => props.theme.backgroundSecondary};
 `;
 
 const AddCoinButtonText = styled.span`
@@ -90,19 +90,18 @@ const AddCoinButtonText = styled.span`
   margin-top: 10px;
 `;
 
-function Portfolios(props) {
-  const { getMarketQuotesLatest, setPortfolioId, portfolios, symbols } = props;
+function Portfolios() {
   const [watchCoinModal, setWatchCoinModal] = useState(false);
+  const portfolios = useSelector((state) => state.portfolios.portfolios);
+  const symbols = useSelector((state) => state.portfolios.portfolios);
+  const dispatch = useDispatch();
 
-  useEffect(
-    () => {
-      getMarketQuotesLatest(symbols);
-    },
-    [symbols]
-  );
+  useEffect(() => {
+    dispatch({ type: GET_MARKET_QUOTES_LATEST_REQUEST, payload: symbols });
+  }, [symbols, dispatch]);
 
   function handleOnClick(id) {
-    setPortfolioId(id);
+    dispatch({ type: SET_PORTFOLIO_ID, payload: id });
     setWatchCoinModal(true);
   }
 
@@ -115,12 +114,12 @@ function Portfolios(props) {
           </Sidebar>
         </SidebarContainer>
         <Watchlist>
-          {portfolios.map(portfolio => {
+          {portfolios.map((portfolio) => {
             return (
               <Portfolio key={portfolio.id}>
                 <Header>{portfolio.name}</Header>
                 <Grid>
-                  {portfolio.coins.map(coin => (
+                  {portfolio.coins.map((coin) => (
                     <Coin
                       key={coin.id}
                       name={coin.name}
@@ -148,17 +147,4 @@ function Portfolios(props) {
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    portfolios: state.portfolios.portfolios,
-    symbols: state.portfolios.symbols
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  {
-    getMarketQuotesLatest,
-    setPortfolioId
-  }
-)(Portfolios);
+export default Portfolios;

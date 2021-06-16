@@ -1,11 +1,11 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { nanoid } from "nanoid";
 import { useForm } from "react-hook-form";
 
 import Modal from "../../commonComponents/Modal";
-import { createNewPortfolio } from "../actions/portfoliosActionCreators";
+import { CREATE_NEW_PORTFOLIO } from "../actions/portfoliosActionTypes";
 
 const Body = styled.div`
   min-width: 100vw;
@@ -75,6 +75,7 @@ const Submit = styled.button`
 `;
 
 function CreateNewPortfolioModal(props) {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -91,7 +92,7 @@ function CreateNewPortfolioModal(props) {
       name: data.name,
       coins: [],
     };
-    props.createNewPortfolio(payload);
+    dispatch({ type: CREATE_NEW_PORTFOLIO, payload });
     props.dismiss();
   }
 
@@ -114,4 +115,4 @@ function CreateNewPortfolioModal(props) {
   );
 }
 
-export default connect(null, { createNewPortfolio })(CreateNewPortfolioModal);
+export default CreateNewPortfolioModal;

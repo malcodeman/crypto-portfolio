@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { Router } from "react-router-dom";
@@ -11,16 +11,12 @@ import Header from "../features/header/components/Header";
 import Portfolios from "../features/portfolios/components/Portfolios";
 import NavigationDrawer from "../features/ui/components/NavigationDrawer";
 
-const App = props => {
-  function getTheme() {
-    const { darkMode } = props;
-    const theme = darkMode ? darkTheme : lightTheme;
-
-    return theme;
-  }
+const App = () => {
+  const darkMode = useSelector((state) => state.settings.darkMode);
+  const theme = darkMode ? darkTheme : lightTheme;
 
   return (
-    <ThemeProvider theme={getTheme()}>
+    <ThemeProvider theme={theme}>
       <Router history={history}>
         <>
           <Header />
@@ -32,13 +28,4 @@ const App = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    darkMode: state.settings.darkMode
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  null
-)(App);
+export default App;

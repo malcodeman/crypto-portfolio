@@ -1,11 +1,11 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useClickAway } from "react-use";
 
 import ThemeForm from "../../settings/components/ThemeForm";
-import { closeNavigationDrawer } from "../actions/uiActionCreators";
+import { CLOSE_NAVIGATION_DRAWER } from "../actions/uiActionTypes";
 
 const Wrapper = styled.div`
   position: fixed;
@@ -69,11 +69,12 @@ const Button = styled.button`
   }
 `;
 
-function NavigationDrawer(props) {
-  const { navigationDrawer, closeNavigationDrawer } = props;
+function NavigationDrawer() {
   const ref = React.useRef(null);
+  const dispatch = useDispatch();
+  const navigationDrawer = useSelector((state) => state.ui.navigationDrawer);
 
-  useClickAway(ref, closeNavigationDrawer);
+  useClickAway(ref, () => dispatch({ type: CLOSE_NAVIGATION_DRAWER }));
 
   if (navigationDrawer) {
     return (
@@ -94,12 +95,4 @@ function NavigationDrawer(props) {
   return null;
 }
 
-const mapStateToProps = (state) => {
-  return {
-    navigationDrawer: state.ui.navigationDrawer,
-  };
-};
-
-export default connect(mapStateToProps, {
-  closeNavigationDrawer,
-})(NavigationDrawer);
+export default NavigationDrawer;

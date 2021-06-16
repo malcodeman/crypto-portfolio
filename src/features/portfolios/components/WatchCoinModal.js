@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Modal from "../../commonComponents/Modal";
 
 import Spin from "../../ui/components/Spin";
-import { getMap, watchCoin } from "../actions/portfoliosActionCreators";
+import { GET_MAP_REQUEST, WATCH_COIN } from "../actions/portfoliosActionTypes";
 
 const Body = styled.div`
   min-width: 100vw;
@@ -17,9 +17,9 @@ const Body = styled.div`
     min-width: 50vw;
     height: 50vh;
   }
-  border-radius: ${props => props.theme.borderRadius};
-  animation: ${props => props.theme.bounceInAnimation};
-  background-color: ${props => props.theme.backgroundPrimary};
+  border-radius: ${(props) => props.theme.borderRadius};
+  animation: ${(props) => props.theme.bounceInAnimation};
+  background-color: ${(props) => props.theme.backgroundPrimary};
 `;
 
 const Search = styled.input`
@@ -28,9 +28,9 @@ const Search = styled.input`
   padding: 10px;
   margin-bottom: 16px;
   width: 100%;
-  color: ${props => props.theme.primary};
-  border-radius: ${props => props.theme.borderRadius};
-  background-color: ${props => props.theme.backgroundSecondary};
+  color: ${(props) => props.theme.primary};
+  border-radius: ${(props) => props.theme.borderRadius};
+  background-color: ${(props) => props.theme.backgroundSecondary};
 `;
 
 const Title = styled.h2`
@@ -39,8 +39,8 @@ const Title = styled.h2`
   letter-spacing: 0.1em;
   padding: 10px 0;
   font-weight: normal;
-  color: ${props => props.theme.primary}7F;
-  border-bottom: 1px solid ${props => props.theme.borderColor};
+  color: ${(props) => props.theme.primary}7F;
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
 `;
 
 const SpinWrapper = styled.div`
@@ -55,7 +55,7 @@ const Coin = styled.div`
   font-size: 0.8rem;
   padding: 10px 0;
   :not(:last-child) {
-    border-bottom: 1px solid ${props => props.theme.borderColor};
+    border-bottom: 1px solid ${(props) => props.theme.borderColor};
   }
 `;
 
@@ -65,17 +65,17 @@ const Index = styled.span`
   @media (min-width: 768px) {
     display: inline;
   }
-  color: ${props => props.theme.primary};
+  color: ${(props) => props.theme.primary};
 `;
 
 const Name = styled.span`
   margin-right: 10px;
-  color: ${props => props.theme.primary};
+  color: ${(props) => props.theme.primary};
 `;
 
 const Symbol = styled.span`
   margin-right: 10px;
-  color: ${props => props.theme.primary}7F;
+  color: ${(props) => props.theme.primary}7F;
 `;
 
 const WatchCoinButton = styled.button`
@@ -93,35 +93,39 @@ const WatchCoinButton = styled.button`
   @media (min-width: 768px) {
     min-width: 128px;
   }
-  background: ${props => props.theme.ibizaSunset};
+  background: ${(props) => props.theme.ibizaSunset};
 `;
 
 function WatchCoinModal(props) {
-  const { fetchingMap, map, watchCoin, portfolioId } = props;
+  const dispatch = useDispatch();
+  const map = useSelector((state) => state.portfolios.map);
+  const fetchingMap = useSelector((state) => state.portfolios.fetchingMap);
+  const portfolioId = useSelector((state) => state.portfolios.portfolioId);
 
   useEffect(() => {
-    const { getMap } = props;
-
-    getMap();
-  }, []);
+    dispatch({ type: GET_MAP_REQUEST });
+  }, [dispatch]);
 
   return (
     <Modal dismiss={props.dismiss}>
       <Body>
         <Search autoFocus type="text" placeholder="Search over 2.000 coins" />
         <Title>All coins</Title>
-        {map.length === 0 &&
-          fetchingMap && (
-            <SpinWrapper>
-              <Spin />
-            </SpinWrapper>
-          )}
+        {map.length === 0 && fetchingMap && (
+          <SpinWrapper>
+            <Spin />
+          </SpinWrapper>
+        )}
         {map.map((coin, index) => (
           <Coin key={coin.id}>
             <Index>{index + 1}</Index>
             <Name>{coin.name}</Name>
             <Symbol>{coin.symbol}</Symbol>
-            <WatchCoinButton onClick={() => watchCoin({ portfolioId, coin })}>
+            <WatchCoinButton
+              onClick={() =>
+                dispatch({ type: WATCH_COIN, payload: { portfolioId, coin } })
+              }
+            >
               Watch
             </WatchCoinButton>
           </Coin>
@@ -131,18 +135,4 @@ function WatchCoinModal(props) {
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    map: state.portfolios.map,
-    fetchingMap: state.portfolios.fetchingMap,
-    portfolioId: state.portfolios.portfolioId
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  {
-    getMap,
-    watchCoin
-  }
-)(WatchCoinModal);
+export default WatchCoinModal;

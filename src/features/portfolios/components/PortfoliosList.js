@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import CreateNewPortfolioModal from "./CreateNewPortfolioModal";
@@ -25,8 +25,8 @@ const IconWrapper = styled.div`
   padding: 8px;
   border-radius: 50%;
   cursor: pointer;
-  color: ${props => props.theme.primary};
-  background: ${props =>
+  color: ${(props) => props.theme.primary};
+  background: ${(props) =>
     props.active ? props.theme.backgroundSecondary : "transparent"};
 `;
 
@@ -36,9 +36,9 @@ const Search = styled.input`
   padding: 10px;
   margin-right: 10px;
   flex-grow: 1;
-  color: ${props => props.theme.primary};
-  border-radius: ${props => props.theme.borderRadius};
-  background-color: ${props => props.theme.backgroundSecondary};
+  color: ${(props) => props.theme.primary};
+  border-radius: ${(props) => props.theme.borderRadius};
+  background-color: ${(props) => props.theme.backgroundSecondary};
 `;
 
 const Title = styled.h2`
@@ -48,7 +48,7 @@ const Title = styled.h2`
   padding: 0 10px;
   margin-bottom: 10px;
   font-weight: normal;
-  color: ${props => props.theme.primary}7F;
+  color: ${(props) => props.theme.primary}7F;
 `;
 
 const StyledList = styled.ul`
@@ -67,10 +67,10 @@ const Item = styled.li`
   justify-content: space-between;
   padding: 10px;
   cursor: pointer;
-  color: ${props => props.theme.primary};
-  border-radius: ${props => props.theme.borderRadius};
+  color: ${(props) => props.theme.primary};
+  border-radius: ${(props) => props.theme.borderRadius};
   &:hover {
-    background-color: ${props => props.theme.backgroundSecondary};
+    background-color: ${(props) => props.theme.backgroundSecondary};
     ${StyledGrab} {
       visibility: visible;
     }
@@ -90,10 +90,10 @@ const CreateNewButton = styled.button`
   cursor: pointer;
   background-color: transparent;
   text-transform: capitalize;
-  color: ${props => props.theme.primary};
-  border-radius: ${props => props.theme.borderRadius};
+  color: ${(props) => props.theme.primary};
+  border-radius: ${(props) => props.theme.borderRadius};
   &:hover {
-    background-color: ${props => props.theme.backgroundSecondary};
+    background-color: ${(props) => props.theme.backgroundSecondary};
   }
 `;
 
@@ -101,8 +101,9 @@ const ButtonText = styled.span`
   margin-left: 10px;
 `;
 
-function PortfoliosList(props) {
+function PortfoliosList() {
   const [createNewPortfolioModal, setcreateNewPortfolioModal] = useState(false);
+  const portfolios = useSelector((state) => state.portfolios.portfolios);
 
   return (
     <Wrapper>
@@ -117,7 +118,7 @@ function PortfoliosList(props) {
       </Header>
       <Title>Portfolios</Title>
       <StyledList>
-        {props.portfolios.map(portfolio => (
+        {portfolios.map((portfolio) => (
           <Item key={portfolio.id}>
             <ItemText>{portfolio.name}</ItemText>
             <StyledGrab height={16} width={16} />
@@ -137,13 +138,4 @@ function PortfoliosList(props) {
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    portfolios: state.portfolios.portfolios
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  null
-)(PortfoliosList);
+export default PortfoliosList;

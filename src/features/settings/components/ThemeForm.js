@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Switch from "../../commonComponents/Switch";
-import { toggleDarkMode } from "../actions/settingsActionCreators";
+import { TOGGLE_DARK_MODE } from "../actions/settingsActionTypes";
 
 const SwitchWrapper = styled.div`
   display: flex;
@@ -14,16 +14,16 @@ const SwitchWrapper = styled.div`
 
 const Label = styled.label`
   font-size: 0.8rem;
-  color: ${props => props.theme.primary};
+  color: ${(props) => props.theme.primary};
 `;
 
-function ThemeForm(props) {
-  const { darkMode, toggleDarkMode } = props;
+function ThemeForm() {
+  const dispatch = useDispatch();
+  const darkMode = useSelector((state) => state.settings.darkMode);
 
   function toggleState() {
     const state = darkMode ? false : true;
-
-    toggleDarkMode(state);
+    dispatch({ type: TOGGLE_DARK_MODE, payload: state });
   }
 
   return (
@@ -34,13 +34,4 @@ function ThemeForm(props) {
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    darkMode: state.settings.darkMode
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  { toggleDarkMode }
-)(ThemeForm);
+export default ThemeForm;

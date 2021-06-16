@@ -1,10 +1,10 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-import { openNavigationDrawer } from "../../ui/actions/uiActionCreators";
 import MoreVertical from "../styles/icons/MoreVertical";
+import { OPEN_NAVIGATION_DRAWER } from "../../ui/actions/uiActionTypes";
 
 const StyledHeader = styled.header`
   position: fixed;
@@ -12,8 +12,8 @@ const StyledHeader = styled.header`
   left: 0;
   right: 0;
   z-index: 1;
-  background-color: ${props => props.theme.backgroundPrimary};
-  border-bottom: 1px solid ${props => props.theme.borderColor};
+  background-color: ${(props) => props.theme.backgroundPrimary};
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
 `;
 
 const Container = styled.div`
@@ -39,9 +39,9 @@ const StyledNavLink = styled(NavLink)`
   justify-content: center;
   padding: 0 10px;
   font-size: 1rem;
-  color: ${props => props.theme.primary}99;
+  color: ${(props) => props.theme.primary}99;
   &.active {
-    color: ${props => props.theme.primary};
+    color: ${(props) => props.theme.primary};
   }
 `;
 
@@ -54,11 +54,11 @@ const MoreButton = styled.button`
   @media (min-width: 576px) {
     margin-left: auto;
   }
-  color: ${props => props.theme.primary};
+  color: ${(props) => props.theme.primary};
 `;
 
-function Header(props) {
-  const { openNavigationDrawer } = props;
+function Header() {
+  const dispatch = useDispatch();
 
   return (
     <StyledHeader>
@@ -70,7 +70,9 @@ function Header(props) {
           <StyledNavLink to="/signals">Signals</StyledNavLink>
           <StyledNavLink to="/markets">Markets</StyledNavLink>
           <StyledNavLink to="/news">News</StyledNavLink>
-          <MoreButton onClick={() => openNavigationDrawer()}>
+          <MoreButton
+            onClick={() => dispatch({ type: OPEN_NAVIGATION_DRAWER })}
+          >
             <MoreVertical height={16} width={16} />
           </MoreButton>
         </Nav>
@@ -79,9 +81,4 @@ function Header(props) {
   );
 }
 
-export default connect(
-  null,
-  {
-    openNavigationDrawer
-  }
-)(Header);
+export default Header;
