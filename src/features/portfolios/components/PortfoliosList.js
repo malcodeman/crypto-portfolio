@@ -129,11 +129,10 @@ function PortfoliosList() {
         <Plus height={16} width={16} />
         <ButtonText>Create new portfolio</ButtonText>
       </CreateNewButton>
-      {createNewPortfolioModal && (
-        <CreateNewPortfolioModal
-          dismiss={() => setcreateNewPortfolioModal(false)}
-        />
-      )}
+      <CreateNewPortfolioModal
+        isOpen={createNewPortfolioModal}
+        onClose={() => setcreateNewPortfolioModal(false)}
+      />
     </Wrapper>
   );
 }
