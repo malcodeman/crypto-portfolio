@@ -6,7 +6,7 @@
     "@chakra-ui/react": "^1.6.3",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "framer-motion": "^4",
     "nanoid": "^3.1.10",
     "react": "16.13.1",
