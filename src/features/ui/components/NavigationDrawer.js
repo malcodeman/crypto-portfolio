@@ -16,7 +16,6 @@ const Wrapper = styled.div`
   z-index: 2;
   display: flex;
   justify-content: flex-end;
-  background-color: rgba(0, 0, 0, 0.4);
 `;
 
 const StyledNavigationDrawer = styled.div`
