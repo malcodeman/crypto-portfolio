@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Center, Spinner } from "@chakra-ui/react";
 import styled from "styled-components";
 import Modal from "../../commonComponents/Modal";
 
-import Spin from "../../ui/components/Spin";
 import { GET_MAP_REQUEST, WATCH_COIN } from "../actions/portfoliosActionTypes";
 
 const Body = styled.div`
@@ -41,12 +41,6 @@ const Title = styled.h2`
   font-weight: normal;
   color: ${(props) => props.theme.primary}7F;
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
-`;
-
-const SpinWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 1em 0;
 `;
 
 const Coin = styled.div`
@@ -112,9 +106,9 @@ function WatchCoinModal(props) {
         <Search autoFocus type="text" placeholder="Search over 2.000 coins" />
         <Title>All coins</Title>
         {map.length === 0 && fetchingMap && (
-          <SpinWrapper>
-            <Spin />
-          </SpinWrapper>
+          <Center marginY="2">
+            <Spinner />
+          </Center>
         )}
         {map.map((coin, index) => (
           <Coin key={coin.id}>
