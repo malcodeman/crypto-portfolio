@@ -138,9 +138,10 @@ function Portfolios() {
               </Portfolio>
             );
           })}
-          {watchCoinModal && (
-            <WatchCoinModal dismiss={() => setWatchCoinModal(false)} />
-          )}
+          <WatchCoinModal
+            isOpen={watchCoinModal}
+            onClose={() => setWatchCoinModal(false)}
+          />
         </Watchlist>
       </Container>
     </Wrapper>
