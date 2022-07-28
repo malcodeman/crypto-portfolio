@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { FiList, FiGrid, FiPlus } from "react-icons/fi";
 
 import CreateNewPortfolioModal from "./CreateNewPortfolioModal";
-import Plus from "../styles/icons/Plus";
 import Grab from "../styles/icons/Grab";
-import Grid from "../styles/icons/Grid";
-import List from "../styles/icons/List";
 
 const Wrapper = styled.div`
   display: flex;
@@ -110,10 +108,10 @@ function PortfoliosList() {
       <Header>
         <Search type="text" placeholder="Find a portfolio" />
         <IconWrapper active>
-          <Grid height={16} width={16} />
+          <FiGrid />
         </IconWrapper>
         <IconWrapper>
-          <List height={16} width={16} />
+          <FiList />
         </IconWrapper>
       </Header>
       <Title>Portfolios</Title>
@@ -126,7 +124,7 @@ function PortfoliosList() {
         ))}
       </StyledList>
       <CreateNewButton onClick={() => setcreateNewPortfolioModal(true)}>
-        <Plus height={16} width={16} />
+        <FiPlus />
         <ButtonText>Create new portfolio</ButtonText>
       </CreateNewButton>
       <CreateNewPortfolioModal
