@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { FiPlus } from "react-icons/fi";
 
 import PortfoliosList from "./PortfoliosList";
 import WatchCoinModal from "./WatchCoinModal";
 import Coin from "./Coin";
-import Plus from "../styles/icons/Plus";
 import {
   GET_MARKET_QUOTES_LATEST_REQUEST,
   SET_PORTFOLIO_ID,
@@ -130,7 +130,7 @@ function Portfolios() {
                   ))}
                   <AddCoinButtonWrapper>
                     <AddCoinButton onClick={() => handleOnClick(portfolio.id)}>
-                      <Plus height={16} width={16} />
+                      <FiPlus />
                     </AddCoinButton>
                     <AddCoinButtonText>Add a coin</AddCoinButtonText>
                   </AddCoinButtonWrapper>

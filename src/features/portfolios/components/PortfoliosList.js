@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { FiList, FiGrid, FiPlus } from "react-icons/fi";
+import { ButtonGroup, Flex, IconButton, Input, Text } from "@chakra-ui/react";
 
 import CreateNewPortfolioModal from "./CreateNewPortfolioModal";
 import Grab from "../styles/icons/Grab";
@@ -9,44 +10,6 @@ import Grab from "../styles/icons/Grab";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const Header = styled.header`
-  display: flex;
-  align-items: center;
-  margin-bottom: 16px;
-`;
-
-const IconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 8px;
-  border-radius: 50%;
-  cursor: pointer;
-  color: ${(props) => props.theme.primary};
-  background: ${(props) =>
-    props.active ? props.theme.backgroundSecondary : "transparent"};
-`;
-
-const Search = styled.input`
-  border: 0;
-  font-size: 0.8rem;
-  padding: 10px;
-  margin-right: 10px;
-  flex-grow: 1;
-  color: ${(props) => props.theme.primary};
-  border-radius: ${(props) => props.theme.borderRadius};
-  background-color: ${(props) => props.theme.backgroundSecondary};
-`;
-
-const Title = styled.h2`
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 0 10px;
-  margin-bottom: 10px;
-  font-weight: normal;
-  color: ${(props) => props.theme.primary}7F;
 `;
 
 const StyledList = styled.ul`
@@ -105,16 +68,33 @@ function PortfoliosList() {
 
   return (
     <Wrapper>
-      <Header>
-        <Search type="text" placeholder="Find a portfolio" />
-        <IconWrapper active>
-          <FiGrid />
-        </IconWrapper>
-        <IconWrapper>
-          <FiList />
-        </IconWrapper>
-      </Header>
-      <Title>Portfolios</Title>
+      <Flex mb="2">
+        <Input
+          size="sm"
+          mr="2"
+          borderRadius="md"
+          type="text"
+          placeholder="Find a portfolio"
+        />
+        <ButtonGroup size="sm" isAttached>
+          <IconButton
+            isActive
+            mr="-px"
+            aria-label="List view"
+            icon={<FiList />}
+          />
+          <IconButton aria-label="Grid view" icon={<FiGrid />} />
+        </ButtonGroup>
+      </Flex>
+      <Text
+        mb="2"
+        paddingX="10px"
+        letterSpacing="wide"
+        fontSize="sm"
+        textTransform="uppercase"
+      >
+        Portfolios
+      </Text>
       <StyledList>
         {portfolios.map((portfolio) => (
           <Item key={portfolio.id}>
