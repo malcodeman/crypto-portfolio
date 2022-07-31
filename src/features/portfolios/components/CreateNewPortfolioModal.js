@@ -22,12 +22,19 @@ function CreateNewPortfolioModal(props) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
       name: "New portfolio",
     },
   });
+
+  React.useEffect(() => {
+    if (!isOpen) {
+      reset();
+    }
+  }, [isOpen, reset]);
 
   function onSubmit(data) {
     const payload = {
@@ -44,21 +51,23 @@ function CreateNewPortfolioModal(props) {
       <ModalContent>
         <form onSubmit={handleSubmit(onSubmit)}>
           <ModalBody>
-            <FormControl>
+            <FormControl isInvalid={Boolean(errors.name)}>
               <FormLabel>Portfolio name</FormLabel>
               <Input
+                size="sm"
+                borderRadius="md"
                 placeholder="New portfolio"
                 {...register("name", {
                   required: { value: true, message: "Name is required!" },
                 })}
               />
-              {errors.name && (
-                <FormErrorMessage>{errors.name.message}</FormErrorMessage>
-              )}
+              <FormErrorMessage>{errors?.name?.message}</FormErrorMessage>
             </FormControl>
           </ModalBody>
           <ModalFooter>
-            <Button type="submit">Create portfolio</Button>
+            <Button size="sm" type="submit">
+              Create portfolio
+            </Button>
           </ModalFooter>
         </form>
       </ModalContent>
