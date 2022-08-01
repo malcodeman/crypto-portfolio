@@ -1,83 +1,58 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import { FiMoreVertical } from "react-icons/fi";
+import {
+  Box,
+  Container,
+  Flex,
+  IconButton,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 
-import MoreVertical from "../styles/icons/MoreVertical";
 import { OPEN_NAVIGATION_DRAWER } from "../../ui/actions/uiActionTypes";
-
-const StyledHeader = styled.header`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  background-color: ${(props) => props.theme.backgroundPrimary};
-  border-bottom: 1px solid ${(props) => props.theme.borderColor};
-`;
-
-const Container = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-  padding: 0 20px;
-`;
-
-const Nav = styled.nav`
-  display: flex;
-  height: 48px;
-  width: 100%;
-  justify-content: space-between;
-  @media (min-width: 576px) {
-    justify-content: initial;
-  }
-`;
-
-const StyledNavLink = styled(NavLink)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 10px;
-  font-size: 1rem;
-  color: ${(props) => props.theme.primary}99;
-  &.active {
-    color: ${(props) => props.theme.primary};
-  }
-`;
-
-const MoreButton = styled.button`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  border: 0;
-  background-color: transparent;
-  @media (min-width: 576px) {
-    margin-left: auto;
-  }
-  color: ${(props) => props.theme.primary};
-`;
 
 function Header() {
   const dispatch = useDispatch();
-
+  const boxShadow = useColorModeValue(
+    "rgba(0, 0, 0, 0.03) 0px 2px 0px 0px",
+    "rgba(255, 255, 255, 0.03) 0px 2px 0px 0px"
+  );
   return (
-    <StyledHeader>
-      <Container>
-        <Nav>
-          <StyledNavLink exact to="/">
-            Home
-          </StyledNavLink>
-          <StyledNavLink to="/signals">Signals</StyledNavLink>
-          <StyledNavLink to="/markets">Markets</StyledNavLink>
-          <StyledNavLink to="/news">News</StyledNavLink>
-          <MoreButton
+    <Box
+      boxShadow={boxShadow}
+      position="fixed"
+      top="0"
+      right="0"
+      left="0"
+      zIndex="1"
+    >
+      <Container maxW="container.lg">
+        <Flex paddingY="2" justifyContent="space-between" alignItems="center">
+          <Flex>
+            <NavLink exact to="/">
+              <Text mr="2">Home</Text>
+            </NavLink>
+            <NavLink to="/signals">
+              <Text mr="2">Signals</Text>
+            </NavLink>
+            <NavLink to="/markets">
+              <Text mr="2">Markets</Text>
+            </NavLink>
+            <NavLink to="/news">
+              <Text mr="2">News</Text>
+            </NavLink>
+          </Flex>
+          <IconButton
+            size="sm"
             onClick={() => dispatch({ type: OPEN_NAVIGATION_DRAWER })}
           >
-            <MoreVertical height={16} width={16} />
-          </MoreButton>
-        </Nav>
+            <FiMoreVertical />
+          </IconButton>
+        </Flex>
       </Container>
-    </StyledHeader>
+    </Box>
   );
 }
 

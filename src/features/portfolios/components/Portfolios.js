@@ -19,9 +19,9 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-  max-width: 1200px;
+  max-width: 1024px;
   margin: 0 auto;
-  padding: 64px 20px;
+  padding: 64px 1rem;
   width: 100%;
   @media (min-width: 992px) {
     display: grid;
