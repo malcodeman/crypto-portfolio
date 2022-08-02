@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 import { FiPlus } from "react-icons/fi";
+import { Box, Button, Container, Flex, Grid, Text } from "@chakra-ui/react";
 
 import PortfoliosList from "./PortfoliosList";
 import WatchCoinModal from "./WatchCoinModal";
@@ -10,85 +10,6 @@ import {
   GET_MARKET_QUOTES_LATEST_REQUEST,
   SET_PORTFOLIO_ID,
 } from "../actions/portfoliosActionTypes";
-
-const Wrapper = styled.div`
-  min-height: 100vh;
-  transition: background-color 0.2s ease;
-  background-color: ${(props) => props.theme.backgroundPrimary};
-  transition: ${(props) => props.theme.backgroundColorTransition};
-`;
-
-const Container = styled.div`
-  max-width: 1024px;
-  margin: 0 auto;
-  padding: 64px 1rem;
-  width: 100%;
-  @media (min-width: 992px) {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    grid-gap: 20px;
-  }
-`;
-
-const Header = styled.header`
-  font-size: 0.8rem;
-  font-weight: 500;
-  margin-bottom: 20px;
-  color: ${(props) => props.theme.primary};
-  border-radius: ${(props) => props.theme.borderRadius};
-`;
-
-const Watchlist = styled.div`
-  color: ${(props) => props.theme.primary};
-`;
-
-const Portfolio = styled.div`
-  margin-bottom: 20px;
-`;
-
-const SidebarContainer = styled.div`
-  display: none;
-  @media (min-width: 992px) {
-    display: flex;
-    flex-direction: column;
-  }
-`;
-
-const Sidebar = styled.div`
-  position: sticky;
-  top: 64px;
-`;
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
-  grid-gap: 20px;
-`;
-
-const AddCoinButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const AddCoinButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border: 0;
-  padding: 10px;
-  height: 100%;
-  width: 100%;
-  color: ${(props) => props.theme.primary};
-  border-radius: ${(props) => props.theme.borderRadius};
-  background-color: ${(props) => props.theme.backgroundSecondary};
-`;
-
-const AddCoinButtonText = styled.span`
-  font-size: 0.8rem;
-  margin-top: 10px;
-`;
 
 function Portfolios() {
   const [watchCoinModal, setWatchCoinModal] = useState(false);
@@ -106,45 +27,59 @@ function Portfolios() {
   }
 
   return (
-    <Wrapper>
-      <Container>
-        <SidebarContainer>
-          <Sidebar>
-            <PortfoliosList />
-          </Sidebar>
-        </SidebarContainer>
-        <Watchlist>
-          {portfolios.map((portfolio) => {
-            return (
-              <Portfolio key={portfolio.id}>
-                <Header>{portfolio.name}</Header>
-                <Grid>
-                  {portfolio.coins.map((coin) => (
-                    <Coin
-                      key={coin.id}
-                      name={coin.name}
-                      symbol={coin.symbol}
-                      price={coin.price}
-                      percentChange24h={coin.percentChange24h}
-                    />
-                  ))}
-                  <AddCoinButtonWrapper>
-                    <AddCoinButton onClick={() => handleOnClick(portfolio.id)}>
-                      <FiPlus />
-                    </AddCoinButton>
-                    <AddCoinButtonText>Add a coin</AddCoinButtonText>
-                  </AddCoinButtonWrapper>
-                </Grid>
-              </Portfolio>
-            );
-          })}
-          <WatchCoinModal
-            isOpen={watchCoinModal}
-            onClose={() => setWatchCoinModal(false)}
-          />
-        </Watchlist>
+    <Box minHeight="100vh">
+      <Container maxW="container.lg">
+        <Grid templateColumns="1fr 3fr" gridGap="2">
+          <Flex flexDir="column">
+            <Box position="sticky" top="64px">
+              <PortfoliosList />
+            </Box>
+          </Flex>
+          <Box paddingTop="64px">
+            {portfolios.map((portfolio) => {
+              return (
+                <Box key={portfolio.id} mb="4">
+                  <Text
+                    mb="2"
+                    letterSpacing="wide"
+                    fontSize="sm"
+                    textTransform="uppercase"
+                  >
+                    {portfolio.name}
+                  </Text>
+                  <Grid
+                    templateColumns="repeat(auto-fill, minmax(256px, 1fr))"
+                    gridGap="2"
+                  >
+                    {portfolio.coins.map((coin) => (
+                      <Coin
+                        key={coin.id}
+                        name={coin.name}
+                        symbol={coin.symbol}
+                        price={coin.price}
+                        percentChange24h={coin.percentChange24h}
+                      />
+                    ))}
+                    <Button
+                      minH="full"
+                      size="sm"
+                      rightIcon={<FiPlus />}
+                      onClick={() => handleOnClick(portfolio.id)}
+                    >
+                      Add a coin
+                    </Button>
+                  </Grid>
+                </Box>
+              );
+            })}
+            <WatchCoinModal
+              isOpen={watchCoinModal}
+              onClose={() => setWatchCoinModal(false)}
+            />
+          </Box>
+        </Grid>
       </Container>
-    </Wrapper>
+    </Box>
   );
 }
 
