@@ -11,14 +11,16 @@ import {
   Button,
   Heading,
   Stack,
+  useColorMode,
 } from "@chakra-ui/react";
+import { FiMoon, FiSun } from "react-icons/fi";
 
-import ThemeForm from "../../settings/components/ThemeForm";
 import { CLOSE_NAVIGATION_DRAWER } from "../actions/uiActionTypes";
 
 function NavigationDrawer() {
   const dispatch = useDispatch();
   const navigationDrawer = useSelector((state) => state.ui.navigationDrawer);
+  const { colorMode, toggleColorMode } = useColorMode();
 
   function onClose() {
     dispatch({ type: CLOSE_NAVIGATION_DRAWER });
@@ -31,8 +33,15 @@ function NavigationDrawer() {
         <DrawerCloseButton />
         <DrawerHeader>General</DrawerHeader>
         <DrawerBody>
-          <ThemeForm />
           <Stack direction="column" spacing="2" mb="4">
+            <Button
+              size="sm"
+              width="full"
+              onClick={toggleColorMode}
+              rightIcon={colorMode === "dark" ? <FiMoon /> : <FiSun />}
+            >
+              {colorMode === "dark" ? "Dark mode" : "Light mode"}
+            </Button>
             <Link to="/settings">
               <Button size="sm" width="full">
                 Settings
