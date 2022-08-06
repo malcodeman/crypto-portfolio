@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Route } from "react-router-dom";
 import { Router } from "react-router-dom";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
@@ -10,12 +9,7 @@ import Portfolios from "../features/portfolios/components/Portfolios";
 import NavigationDrawer from "../features/ui/components/NavigationDrawer";
 
 const App = () => {
-  const darkMode = useSelector((state) => state.settings.darkMode);
-  const config = {
-    initialColorMode: darkMode ? "dark" : "light",
-    useSystemColorMode: false,
-  };
-  const theme = extendTheme({ config });
+  const theme = extendTheme();
   return (
     <Router history={history}>
       <ChakraProvider theme={theme}>
