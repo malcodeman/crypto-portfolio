@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   Drawer,
@@ -15,19 +14,11 @@ import {
 } from "@chakra-ui/react";
 import { FiMoon, FiSun } from "react-icons/fi";
 
-import { CLOSE_NAVIGATION_DRAWER } from "../actions/uiActionTypes";
-
-function NavigationDrawer() {
-  const dispatch = useDispatch();
-  const navigationDrawer = useSelector((state) => state.ui.navigationDrawer);
+function NavigationDrawer(props) {
+  const { isOpen, onClose } = props;
   const { colorMode, toggleColorMode } = useColorMode();
-
-  function onClose() {
-    dispatch({ type: CLOSE_NAVIGATION_DRAWER });
-  }
-
   return (
-    <Drawer isOpen={navigationDrawer} onClose={onClose}>
+    <Drawer isOpen={isOpen} onClose={onClose}>
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton />

@@ -6,7 +6,6 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import history from "./routing/history";
 import Header from "../features/header/components/Header";
 import Portfolios from "../features/portfolios/components/Portfolios";
-import NavigationDrawer from "../features/ui/components/NavigationDrawer";
 
 const App = () => {
   const theme = extendTheme();
@@ -14,7 +13,6 @@ const App = () => {
     <Router history={history}>
       <ChakraProvider theme={theme}>
         <Header />
-        <NavigationDrawer />
         <Route exact path="/" component={Portfolios} />
       </ChakraProvider>
     </Router>

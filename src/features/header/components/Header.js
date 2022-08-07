@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { FiMoreVertical } from "react-icons/fi";
 import {
@@ -9,16 +8,17 @@ import {
   IconButton,
   Text,
   useColorModeValue,
+  useDisclosure,
 } from "@chakra-ui/react";
 
-import { OPEN_NAVIGATION_DRAWER } from "../../ui/actions/uiActionTypes";
+import NavigationDrawer from "../../ui/components/NavigationDrawer";
 
 function Header() {
-  const dispatch = useDispatch();
   const boxShadow = useColorModeValue(
     "rgba(0, 0, 0, 0.03) 0px 2px 0px 0px",
     "rgba(255, 255, 255, 0.03) 0px 2px 0px 0px"
   );
+  const { isOpen, onClose, onOpen } = useDisclosure();
   return (
     <Box
       boxShadow={boxShadow}
@@ -44,14 +44,12 @@ function Header() {
               <Text mr="2">News</Text>
             </NavLink>
           </Flex>
-          <IconButton
-            size="sm"
-            onClick={() => dispatch({ type: OPEN_NAVIGATION_DRAWER })}
-          >
+          <IconButton size="sm" onClose={onOpen}>
             <FiMoreVertical />
           </IconButton>
         </Flex>
       </Container>
+      <NavigationDrawer isOpen={isOpen} onClose={onClose} />
     </Box>
   );
 }
