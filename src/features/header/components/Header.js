@@ -11,7 +11,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-import NavigationDrawer from "../../ui/components/NavigationDrawer";
+import NavigationDrawer from "./NavigationDrawer";
 
 function Header() {
   const boxShadow = useColorModeValue(
@@ -44,7 +44,7 @@ function Header() {
               <Text mr="2">News</Text>
             </NavLink>
           </Flex>
-          <IconButton size="sm" onClose={onOpen}>
+          <IconButton size="sm" onClick={onOpen}>
             <FiMoreVertical />
           </IconButton>
         </Flex>
