@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { nanoid } from "nanoid";
 import { useForm } from "react-hook-form";
 import {
@@ -14,11 +13,10 @@ import {
   Input,
 } from "@chakra-ui/react";
 
-import { CREATE_NEW_PORTFOLIO } from "../actions/portfoliosActionTypes";
+import usePortfolios from "../../../hooks/usePortfolios";
 
 function CreateNewPortfolioModal(props) {
   const { isOpen, onClose } = props;
-  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -29,6 +27,7 @@ function CreateNewPortfolioModal(props) {
       name: "New portfolio",
     },
   });
+  const { push } = usePortfolios();
 
   React.useEffect(() => {
     if (!isOpen) {
@@ -42,7 +41,7 @@ function CreateNewPortfolioModal(props) {
       name: data.name,
       coins: [],
     };
-    dispatch({ type: CREATE_NEW_PORTFOLIO, payload });
+    push(payload);
     onClose();
   }
 

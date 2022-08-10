@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { FiList, FiGrid, FiPlus } from "react-icons/fi";
 import {
   Button,
@@ -13,9 +12,11 @@ import {
 
 import CreateNewPortfolioModal from "./CreateNewPortfolioModal";
 
+import usePortfolios from "../../../hooks/usePortfolios";
+
 function PortfoliosList() {
   const [createNewPortfolioModal, setcreateNewPortfolioModal] = useState(false);
-  const portfolios = useSelector((state) => state.portfolios.portfolios);
+  const { portfolios } = usePortfolios();
 
   return (
     <Flex flexDirection="column">

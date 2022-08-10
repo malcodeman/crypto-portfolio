@@ -11,9 +11,11 @@ import {
   SET_PORTFOLIO_ID,
 } from "../actions/portfoliosActionTypes";
 
+import usePortfolios from "../../../hooks/usePortfolios";
+
 function Portfolios() {
   const [watchCoinModal, setWatchCoinModal] = useState(false);
-  const portfolios = useSelector((state) => state.portfolios.portfolios);
+  const { portfolios } = usePortfolios();
   const symbols = useSelector((state) => state.portfolios.portfolios);
   const dispatch = useDispatch();
 
