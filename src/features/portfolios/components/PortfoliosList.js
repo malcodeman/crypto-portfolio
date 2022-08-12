@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FiList, FiGrid, FiPlus } from "react-icons/fi";
 import {
   Button,
@@ -8,6 +8,7 @@ import {
   Input,
   Stack,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 import CreateNewPortfolioModal from "./CreateNewPortfolioModal";
@@ -15,7 +16,7 @@ import CreateNewPortfolioModal from "./CreateNewPortfolioModal";
 import usePortfolios from "../../../hooks/usePortfolios";
 
 function PortfoliosList() {
-  const [createNewPortfolioModal, setcreateNewPortfolioModal] = useState(false);
+  const { isOpen, onClose, onOpen } = useDisclosure();
   const { portfolios } = usePortfolios();
 
   return (
@@ -64,14 +65,11 @@ function PortfoliosList() {
         justifyContent="flex-start"
         variant="ghost"
         leftIcon={<FiPlus />}
-        onClick={() => setcreateNewPortfolioModal(true)}
+        onClick={onOpen}
       >
         Create new portfolio
       </Button>
-      <CreateNewPortfolioModal
-        isOpen={createNewPortfolioModal}
-        onClose={() => setcreateNewPortfolioModal(false)}
-      />
+      <CreateNewPortfolioModal isOpen={isOpen} onClose={onClose} />
     </Flex>
   );
 }

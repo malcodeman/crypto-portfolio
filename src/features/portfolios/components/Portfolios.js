@@ -1,7 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FiPlus } from "react-icons/fi";
-import { Box, Button, Container, Flex, Grid, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  Grid,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 
 import PortfoliosList from "./PortfoliosList";
 import WatchCoinModal from "./WatchCoinModal";
@@ -14,7 +22,7 @@ import {
 import usePortfolios from "../../../hooks/usePortfolios";
 
 function Portfolios() {
-  const [watchCoinModal, setWatchCoinModal] = useState(false);
+  const { isOpen, onClose, onOpen } = useDisclosure();
   const { portfolios } = usePortfolios();
   const symbols = useSelector((state) => state.portfolios.portfolios);
   const dispatch = useDispatch();
@@ -25,7 +33,7 @@ function Portfolios() {
 
   function handleOnClick(id) {
     dispatch({ type: SET_PORTFOLIO_ID, payload: id });
-    setWatchCoinModal(true);
+    onOpen();
   }
 
   return (
@@ -74,10 +82,7 @@ function Portfolios() {
                 </Box>
               );
             })}
-            <WatchCoinModal
-              isOpen={watchCoinModal}
-              onClose={() => setWatchCoinModal(false)}
-            />
+            <WatchCoinModal isOpen={isOpen} onClose={onClose} />
           </Box>
         </Grid>
       </Container>
