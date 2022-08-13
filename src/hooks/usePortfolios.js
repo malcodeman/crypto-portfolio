@@ -31,7 +31,23 @@ function usePortfolios() {
     setPortfolios([...portfolios, nextPortfolio]);
   }
 
-  return { portfolios, setPortfolios, push };
+  function pushSymbol(id, symbol) {
+    const nextPortfolios = portfolios.map((item) => {
+      if (item.id === id) {
+        return {
+          ...item,
+          coins: [
+            ...item.coins,
+            { id: nanoid(), name: "", symbol, price: 0, percentChange24h: 0 },
+          ],
+        };
+      }
+      return item;
+    });
+    setPortfolios(nextPortfolios);
+  }
+
+  return { portfolios, setPortfolios, push, pushSymbol };
 }
 
 export default usePortfolios;

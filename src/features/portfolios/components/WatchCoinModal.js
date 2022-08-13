@@ -16,18 +16,24 @@ import {
   Flex,
 } from "@chakra-ui/react";
 
-import { GET_MAP_REQUEST, WATCH_COIN } from "../actions/portfoliosActionTypes";
+import { GET_MAP_REQUEST } from "../actions/portfoliosActionTypes";
+
+import usePortfolios from "../../../hooks/usePortfolios";
 
 function WatchCoinModal(props) {
-  const { isOpen, onClose } = props;
+  const { portfolioId, isOpen, onClose } = props;
   const dispatch = useDispatch();
   const map = useSelector((state) => state.portfolios.map);
   const fetchingMap = useSelector((state) => state.portfolios.fetchingMap);
-  const portfolioId = useSelector((state) => state.portfolios.portfolioId);
+  const { pushSymbol } = usePortfolios();
 
   useEffect(() => {
     dispatch({ type: GET_MAP_REQUEST });
   }, [dispatch]);
+
+  function handleOnWatchCoin(symbol) {
+    pushSymbol(portfolioId, symbol);
+  }
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -62,9 +68,7 @@ function WatchCoinModal(props) {
               <Button
                 marginLeft="auto"
                 size="sm"
-                onClick={() =>
-                  dispatch({ type: WATCH_COIN, payload: { portfolioId, coin } })
-                }
+                onClick={() => handleOnWatchCoin(coin.symbol)}
               >
                 Watch
               </Button>

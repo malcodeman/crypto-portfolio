@@ -14,10 +14,7 @@ import {
 import PortfoliosList from "./PortfoliosList";
 import WatchCoinModal from "./WatchCoinModal";
 import Coin from "./Coin";
-import {
-  GET_MARKET_QUOTES_LATEST_REQUEST,
-  SET_PORTFOLIO_ID,
-} from "../actions/portfoliosActionTypes";
+import { GET_MARKET_QUOTES_LATEST_REQUEST } from "../actions/portfoliosActionTypes";
 
 import usePortfolios from "../../../hooks/usePortfolios";
 
@@ -26,14 +23,20 @@ function Portfolios() {
   const { portfolios } = usePortfolios();
   const symbols = useSelector((state) => state.portfolios.portfolios);
   const dispatch = useDispatch();
+  const [portfolioId, setPortfolioId] = React.useState(null);
 
   useEffect(() => {
     dispatch({ type: GET_MARKET_QUOTES_LATEST_REQUEST, payload: symbols });
   }, [symbols, dispatch]);
 
-  function handleOnClick(id) {
-    dispatch({ type: SET_PORTFOLIO_ID, payload: id });
+  function handleOnOpen(id) {
+    setPortfolioId(id);
     onOpen();
+  }
+
+  function handleOnClose() {
+    setPortfolioId(null);
+    onClose();
   }
 
   return (
@@ -74,7 +77,7 @@ function Portfolios() {
                       minH="full"
                       size="sm"
                       rightIcon={<FiPlus />}
-                      onClick={() => handleOnClick(portfolio.id)}
+                      onClick={() => handleOnOpen(portfolio.id)}
                     >
                       Add a coin
                     </Button>
@@ -82,7 +85,11 @@ function Portfolios() {
                 </Box>
               );
             })}
-            <WatchCoinModal isOpen={isOpen} onClose={onClose} />
+            <WatchCoinModal
+              portfolioId={portfolioId}
+              isOpen={isOpen}
+              onClose={handleOnClose}
+            />
           </Box>
         </Grid>
       </Container>
