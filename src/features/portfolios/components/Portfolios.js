@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { FiPlus } from "react-icons/fi";
 import {
   Box,
@@ -10,24 +9,27 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useQuery } from "@tanstack/react-query";
+import axios from "../../../core/http/axiosInstance";
 
 import PortfoliosList from "./PortfoliosList";
 import WatchCoinModal from "./WatchCoinModal";
 import Coin from "./Coin";
-import { GET_MARKET_QUOTES_LATEST_REQUEST } from "../actions/portfoliosActionTypes";
 
 import usePortfolios from "../../../hooks/usePortfolios";
 
 function Portfolios() {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const { portfolios } = usePortfolios();
-  const symbols = useSelector((state) => state.portfolios.portfolios);
-  const dispatch = useDispatch();
+  const { portfolios, getSymbols } = usePortfolios();
+  const symbols = getSymbols();
   const [portfolioId, setPortfolioId] = React.useState(null);
+  const { data, refetch } = useQuery(["marketQuotes"], () =>
+    axios.get(`cryptocurrency/quotes/latest?symbol=${symbols}`)
+  );
 
   useEffect(() => {
-    dispatch({ type: GET_MARKET_QUOTES_LATEST_REQUEST, payload: symbols });
-  }, [symbols, dispatch]);
+    refetch();
+  }, [portfolios, refetch]);
 
   function handleOnOpen(id) {
     setPortfolioId(id);
@@ -69,8 +71,10 @@ function Portfolios() {
                         key={coin.id}
                         name={coin.name}
                         symbol={coin.symbol}
-                        price={coin.price}
-                        percentChange24h={coin.percentChange24h}
+                        price={data?.data[coin.symbol]?.quote.USD.price}
+                        percentChange24h={
+                          data?.data[coin.symbol]?.quote.USD.percent_change_24h
+                        }
                       />
                     ))}
                     <Button

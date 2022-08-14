@@ -47,7 +47,11 @@ function usePortfolios() {
     setPortfolios(nextPortfolios);
   }
 
-  return { portfolios, setPortfolios, push, pushSymbol };
+  function getSymbols() {
+    return portfolios.map((item) => item.coins.map((coin) => coin.symbol));
+  }
+
+  return { portfolios, setPortfolios, push, pushSymbol, getSymbols };
 }
 
 export default usePortfolios;
