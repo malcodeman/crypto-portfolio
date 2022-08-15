@@ -10,6 +10,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
+
 import axios from "../../../core/http/axiosInstance";
 
 import PortfoliosList from "./PortfoliosList";

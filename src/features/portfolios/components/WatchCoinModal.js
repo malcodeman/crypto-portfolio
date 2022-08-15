@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import {
   Center,
   Spinner,
@@ -15,21 +14,20 @@ import {
   Button,
   Flex,
 } from "@chakra-ui/react";
+import { useQuery } from "@tanstack/react-query";
 
-import { GET_MAP_REQUEST } from "../actions/portfoliosActionTypes";
+import axios from "../../../core/http/axiosInstance";
 
 import usePortfolios from "../../../hooks/usePortfolios";
 
 function WatchCoinModal(props) {
   const { portfolioId, isOpen, onClose } = props;
-  const dispatch = useDispatch();
-  const map = useSelector((state) => state.portfolios.map);
-  const fetchingMap = useSelector((state) => state.portfolios.fetchingMap);
   const { pushSymbol } = usePortfolios();
-
-  useEffect(() => {
-    dispatch({ type: GET_MAP_REQUEST });
-  }, [dispatch]);
+  const { data, isFetching } = useQuery(
+    ["map"],
+    () => axios.get(`cryptocurrency/map`),
+    { enabled: isOpen }
+  );
 
   function handleOnWatchCoin(symbol) {
     pushSymbol(portfolioId, symbol);
@@ -50,12 +48,12 @@ function WatchCoinModal(props) {
             placeholder="Search over 2.000 coins"
           />
           <Heading fontSize="lg">All coins</Heading>
-          {map.length === 0 && fetchingMap && (
+          {data === undefined && isFetching && (
             <Center marginY="2">
               <Spinner />
             </Center>
           )}
-          {map.map((coin, index) => (
+          {data?.data.map((coin, index) => (
             <Flex
               key={coin.id}
               padding="2"
