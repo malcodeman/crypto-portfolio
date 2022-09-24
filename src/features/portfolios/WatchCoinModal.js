@@ -16,9 +16,9 @@ import {
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 
-import axios from "../../../core/http/axiosInstance";
+import axios from "../../core/axios";
 
-import usePortfolios from "../../../hooks/usePortfolios";
+import usePortfolios from "../../hooks/usePortfolios";
 
 function WatchCoinModal(props) {
   const { portfolioId, isOpen, onClose } = props;

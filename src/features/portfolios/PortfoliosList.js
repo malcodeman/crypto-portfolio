@@ -13,7 +13,7 @@ import {
 
 import CreateNewPortfolioModal from "./CreateNewPortfolioModal";
 
-import usePortfolios from "../../../hooks/usePortfolios";
+import usePortfolios from "../../hooks/usePortfolios";
 
 function PortfoliosList() {
   const { isOpen, onClose, onOpen } = useDisclosure();

@@ -13,7 +13,7 @@ import {
   Input,
 } from "@chakra-ui/react";
 
-import usePortfolios from "../../../hooks/usePortfolios";
+import usePortfolios from "../../hooks/usePortfolios";
 
 function CreateNewPortfolioModal(props) {
   const { isOpen, onClose } = props;

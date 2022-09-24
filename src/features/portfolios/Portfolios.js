@@ -11,13 +11,13 @@ import {
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 
-import axios from "../../../core/http/axiosInstance";
+import axios from "../../core/axios";
 
 import PortfoliosList from "./PortfoliosList";
 import WatchCoinModal from "./WatchCoinModal";
 import Coin from "./Coin";
 
-import usePortfolios from "../../../hooks/usePortfolios";
+import usePortfolios from "../../hooks/usePortfolios";
 
 function Portfolios() {
   const { isOpen, onClose, onOpen } = useDisclosure();
