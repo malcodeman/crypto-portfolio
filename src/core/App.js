@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -14,7 +14,9 @@ const App = () => {
       <BrowserRouter>
         <ChakraProvider theme={theme}>
           <Header />
-          <Route exact path="/" component={Portfolios} />
+          <Routes>
+            <Route path="/" element={<Portfolios />} />
+          </Routes>
         </ChakraProvider>
       </BrowserRouter>
     </QueryClientProvider>
