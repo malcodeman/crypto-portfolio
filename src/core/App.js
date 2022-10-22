@@ -7,7 +7,21 @@ import Header from "../features/header/Header";
 import Portfolios from "../features/portfolios/Portfolios";
 
 const queryClient = new QueryClient();
-const theme = extendTheme();
+const theme = extendTheme({
+  styles: {
+    global: {
+      html: {
+        scrollbarWidth: "thin",
+      },
+      "html::-webkit-scrollbar": {
+        width: "8px",
+      },
+      "html::-webkit-scrollbar-thumb": {
+        backgroundColor: "#72757b",
+      },
+    },
+  },
+});
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
