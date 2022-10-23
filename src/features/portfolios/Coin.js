@@ -1,4 +1,4 @@
-import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 
 function Coin(props) {
@@ -8,6 +8,10 @@ function Coin(props) {
     "var(--chakra-colors-gray-100)",
     "var(--chakra-colors-whiteAlpha-200)"
   );
+  const numberFormat = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
   return (
     <Flex
       bgColor={bgColor}
@@ -25,9 +29,7 @@ function Coin(props) {
           </Text>
         </Flex>
         <Flex justifyContent="space-between">
-          <Box>
-            <Text>USD</Text> <Text>{price}</Text>
-          </Box>
+          <Text>{price ? numberFormat.format(price) : ""}</Text>
           <Text color={bullish ? "green.400" : "red.400"}>
             {bullish && "+"}
             {percentChange24h}%
