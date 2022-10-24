@@ -1,8 +1,8 @@
-import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { Flex, Text, SkeletonText, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 
 function Coin(props) {
-  const { symbol, price, percentChange24h } = props;
+  const { symbol, price, percentChange24h, isLoading } = props;
   const bullish = percentChange24h > 0;
   const bgColor = useColorModeValue(
     "var(--chakra-colors-gray-100)",
@@ -29,11 +29,19 @@ function Coin(props) {
           </Text>
         </Flex>
         <Flex justifyContent="space-between">
-          <Text>{price ? numberFormat.format(price) : ""}</Text>
-          <Text color={bullish ? "green.400" : "red.400"}>
-            {bullish && "+"}
-            {percentChange24h}%
-          </Text>
+          {isLoading ? (
+            <SkeletonText width="64px" noOfLines={1} />
+          ) : (
+            <Text>{price ? numberFormat.format(price) : ""}</Text>
+          )}
+          {isLoading ? (
+            <SkeletonText width="100px" noOfLines={1} />
+          ) : (
+            <Text color={bullish ? "green.400" : "red.400"}>
+              {bullish && "+"}
+              {percentChange24h}%
+            </Text>
+          )}
         </Flex>
       </Flex>
     </Flex>

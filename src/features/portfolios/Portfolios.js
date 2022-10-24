@@ -24,7 +24,7 @@ function Portfolios() {
   const { portfolios, getSymbols } = usePortfolios();
   const symbols = getSymbols();
   const [portfolioId, setPortfolioId] = React.useState(null);
-  const { data, refetch } = useQuery(["marketQuotes"], () =>
+  const { data, isFetching, refetch } = useQuery(["marketQuotes"], () =>
     axios.get(`cryptocurrency/quotes/latest?symbol=${symbols}`)
   );
 
@@ -76,6 +76,7 @@ function Portfolios() {
                         percentChange24h={
                           data?.data[coin.symbol]?.quote.USD.percent_change_24h
                         }
+                        isLoading={data === undefined && isFetching}
                       />
                     ))}
                     <Button
