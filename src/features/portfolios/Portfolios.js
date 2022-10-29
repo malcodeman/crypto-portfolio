@@ -44,7 +44,7 @@ function Portfolios() {
 
   return (
     <Box minHeight="100vh">
-      <Container maxW="container.lg">
+      <Container maxW="container.xl">
         <Grid
           templateColumns={["1fr", "1fr", "1fr 3fr"]}
           gridGap="4"

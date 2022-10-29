@@ -28,7 +28,7 @@ function Header() {
       left="0"
       zIndex="1"
     >
-      <Container maxW="container.lg">
+      <Container maxW="container.xl">
         <Flex paddingY="2" justifyContent="space-between" alignItems="center">
           <Flex>
             <NavLink exact to="/">
