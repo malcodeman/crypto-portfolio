@@ -28,6 +28,7 @@ function PortfoliosList() {
           borderRadius="md"
           type="text"
           placeholder="Find a portfolio"
+          variant="filled"
         />
         <ButtonGroup size="sm" isAttached>
           <IconButton
@@ -41,7 +42,7 @@ function PortfoliosList() {
       </Flex>
       <Text
         mb="2"
-        paddingX="10px"
+        paddingX="3"
         letterSpacing="wide"
         fontSize="sm"
         textTransform="uppercase"

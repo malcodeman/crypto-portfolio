@@ -18,8 +18,9 @@ function Coin(props) {
       flexDirection="column"
       alignItems="center"
       borderRadius="md"
+      padding="3"
     >
-      <Flex flexDirection="column" padding="2" width="full">
+      <Flex flexDirection="column" width="full">
         <Flex justifyContent="space-between" mb="2">
           <Text fontSize="sm" textTransform="uppercase" mr="2">
             {symbol}

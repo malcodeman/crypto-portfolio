@@ -42,12 +42,22 @@ function WatchCoinModal(props) {
         <ModalBody>
           <Input
             mb="2"
-            size="md"
+            size="sm"
+            borderRadius="md"
             autoFocus
             type="text"
             placeholder="Search over 2.000 coins"
+            variant="filled"
           />
-          <Heading fontSize="lg">All coins</Heading>
+          <Text
+            letterSpacing="wide"
+            fontSize="sm"
+            textTransform="uppercase"
+            mb="2"
+            paddingX="3"
+          >
+            All coins
+          </Text>
           {data === undefined && isFetching && (
             <Center marginY="2">
               <Spinner />

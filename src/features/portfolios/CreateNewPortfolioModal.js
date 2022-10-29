@@ -56,6 +56,7 @@ function CreateNewPortfolioModal(props) {
                 size="sm"
                 borderRadius="md"
                 placeholder="New portfolio"
+                variant="filled"
                 {...register("name", {
                   required: { value: true, message: "Name is required!" },
                 })}

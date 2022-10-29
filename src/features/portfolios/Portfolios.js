@@ -45,13 +45,17 @@ function Portfolios() {
   return (
     <Box minHeight="100vh">
       <Container maxW="container.lg">
-        <Grid templateColumns="1fr 3fr" gridGap="2">
+        <Grid
+          templateColumns={["1fr", "1fr", "1fr 3fr"]}
+          gridGap="4"
+          paddingTop="64px"
+        >
           <Flex flexDir="column">
             <Box position="sticky" top="64px">
               <PortfoliosList />
             </Box>
           </Flex>
-          <Box paddingTop="64px">
+          <Box>
             {portfolios.map((portfolio) => {
               return (
                 <Box key={portfolio.id} mb="4">
@@ -60,6 +64,7 @@ function Portfolios() {
                     letterSpacing="wide"
                     fontSize="sm"
                     textTransform="uppercase"
+                    paddingX="3"
                   >
                     {portfolio.name}
                   </Text>
