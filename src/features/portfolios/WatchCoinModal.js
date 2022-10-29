@@ -8,7 +8,6 @@ import {
   ModalContent,
   ModalCloseButton,
   Input,
-  Heading,
   ModalHeader,
   Text,
   Button,
