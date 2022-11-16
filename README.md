@@ -5,7 +5,7 @@
 
 Bitcoin & cryptocurrency portfolio tracker.
 
-![Screenshot](docs/images/screenshot.png)
+![Screenshot](readme/screenshot.png)
 
 ## Getting started
 
